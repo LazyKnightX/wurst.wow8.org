@@ -1,35 +1,30 @@
 ---
-title: Legacy Code
+title: 旧代码
 sections:
-- Compiling legacy code
-- Using legacy code within wurst
+- 编译旧代码
+- 在Wurst内使用传统代码
 - Jurst dialect
 ---
 
-## Compiling with legacy code
+## 编译旧代码
 
 ### Jass
 
-If you use GUI or vanilla Jass in your map using the trigger editor, the integration should be seamless.
-Saving your map using the WorldEditor will output your GUI or Jass code into the map itself. 
-The compiler then extracts that script when performing the **runmap** command and merges it with the generated Wurst code.
+如果您只使用原生的触发编辑器，或者原生的Jass，则代码集成应该是无缝的。
+使用魔兽地图编辑器保存你的地图会将你的T或者J输出到地图本身，随后在执行`runmap`命令时，编译器会提取该脚本，并将其与生成的Wurst代码合并。
 
-### vJass and others
+### vJass和其它语言
 
-To prevent any confusion: __Wurst does not support vJass directly!__ and it never will. 
-You are required to run JassHelper (or any other preprocessor) yourself and then pass the generated Jass to wurst.
-Either by saving inside an Editor with Jasshelper (JNGP, WEX) or manually including JassHelper into your buildchain.
-Your only other solution is to convert your vJass to Jurst, which will require some manual code adjustments.
+为了避免任何的 __Wurst does not support vJass directly! （Wurst不支持直接在脚本中编写vJass！）__ 错误（注意未来Wurst也不会兼容vJass），你需要手动运行JassHelper（或者其它的预处理器），然后将生成的Jass合并到Wurst中。
+无论是在拥有JassHelper的编辑器（如JNGP，WEX，YDWE），还是手动把JassHelper添加到你的构建链中，你必须做的事情都是把vJass转换为Jurst，这需要你手动对代码做一些调整。
 
-If you use such a tool like JNGP or WEX that automatically injects the modified script into the map, wurst will extract the generated jass code from the map and use it.
-This is the same as with using regular Jass explained above, however it prohibits saving in the vanilla WorldEditor, 
-since it will overwrite the map's script.
+如果您使用像JNGP或WEX这样的工具来自动将修改后的脚本注入到地图中，则Wurst会从地图中提取生成的Jass代码并使用它。
+这与上面提到的如何使用常规Jass相同，但是它禁止在原生WorldEditor中直接保存，因为那会覆盖地图的脚本。
 
-## Using legacy code within wurst
+## 在Wurst内使用传统代码
 
-In rare cases it might be desirable to use legacy code from within wurst code without errors while also receiving benefits like autocomplete
-and jumping to declarations.
-To do this you must extract the war3map.j file from your legacy map and place it into the **wurst/** folder inside your project.
+在少数情况下，在Wurst内使用传统代码，能够在没有编译错误的同时，获取Wurst自带的好处（比如自动补全、跳转到函数声明）。
+为了达成这个效果，你必须从你的传统地图中把war3map.j提取出来，并把它放置在你项目下的 **wurst/** 文件夹中。
 
 ![](/assets/images/legacy/war3map.j.png){: .img-responsive .img-rounded}
 

@@ -1,6 +1,6 @@
 ---
-title: Legacy Map Guide
-excerpt: How to use Jass alongside Wurst
+title: 旧地图指引
+excerpt: 如何让Wurst来到基于Jass制作的旧地图中
 date: 2018-01-03
 icon:
   type: fa
