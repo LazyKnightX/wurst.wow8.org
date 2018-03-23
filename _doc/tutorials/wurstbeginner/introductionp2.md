@@ -4,8 +4,8 @@ sections:
 - 说明
 - 标准库
 - 代码规范
-- Build, deploy, and release
-- How to find library code
+- 构建、部署和发布
+- 如何查找函数库代码
 ---
 
 ------
