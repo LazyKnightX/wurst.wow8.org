@@ -1,6 +1,6 @@
 # WurstScript 网站与文档 （中文）
 
-在线访问：https://wurst.wow8.org/
+在线访问：http://wurst.wow8.org/
 
 该文件夹包含WurstScript网站的完整源代码。这是一个jekyll项目，并通过github-pages进行部署。
 
