@@ -18,7 +18,7 @@ sections:
 
 如果您以前使用过Jass/vJass，您可能会想知道**print**是从哪里来的。
 
-它既不是针对`BJDebugMsg（）`特别编写的封装，也不是wurst的内部函数，而是一个定义在*标准库*（又名stdlib/stl）中的函数。
+它既不是针对`BJDebugMsg()`特别编写的封装，也不是wurst的内部函数，而是一个定义在*标准库*（又名stdlib/stl）中的函数。
 
 WurstScript提供了一个标准库，其中包含大量方便的封装、实用的程序包和强大的系统，它们能够帮助几乎所有的地图，并帮助维护高级编程的一致语法。
 
@@ -34,11 +34,11 @@ WurstScript提供了一个标准库，其中包含大量方便的封装、实用
 
 ## 代码规范
 
-In Wurst, it is generally not recommended to call most natives directly. Instead, an extension function should be used to make the code more concise, readable, consistent and documented. Extension functions can also be easier found via autocomplete.
+在Wurst中，我们通常不建议直接调用大多数Native函数。相反，你应该扩展函数，使代码更加简洁、拥有更好的可读性、一致性并且便于撰写文档。扩展函数也可以通过函数自动填充功能更容易找到。
 
-Let's look at some examples.
+我们来看一些例子。
 
-### Nested Function Calls
+### 嵌套函数调用
 
 Jass:
 
@@ -46,17 +46,19 @@ Jass:
 local integer id = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
 ```
 
-In the Jass variant, even though the code is read from left to right, the order of execution is actually inverse, `GetTriggerUnit()` being the first expression to be evaluated.
+在Jass语句中，即便代码是从左向右读的，但实际的执行顺序却是反过来的。`GetTriggerUnit()`在这里是第一格被执行的函数。
 
-Contrast that with Wurst:
+与Wurst对比:
 
 ```wurst
 let id = GetTriggerUnit().getOwner().getId()
 ```
 
-In the wurst counterpart the code is executed in the same order it is read. Implicit meanings are omitted and there are no nested brackets. Users of Java and other higher level programming languages will find this as no surprise, and indeed new users too will probably agree this way of coding feels more natural. This functionality arises from another automatic import from the standard library - the `Unit` API.
+在Wurst中，代码的执行顺序与其阅读顺序相同，并且没有嵌套括号。Java和其他高级编程语言的用户会觉得这很自然，新用户也可能会觉得这种编码方式更舒服。
 
-### Function Chaining
+这些功能来自另一个自动导入的标准库 - “Unit”API。
+
+### 函数链
 
 Jass:
 
@@ -68,9 +70,9 @@ call UnitAddAbility(u, 'hble')
 call SetUnitPaused(u, true)
 ```
 
-Jass doesn't support cascading/chaining functions on a mutual target. You have to resort to local variables or repeated native calls.
+Jass不支持在多个目标上的 级联/链接 功能。你必须依赖于局部变量或重复的本地调用的帮助。
 
-Wurst support chaining via the *cascade* operator:
+Wurst支持链式调用，基于 *级联* 操作符(`..`):
 
 ```wurst
 GetTriggerUnit()..setX(1000.)
@@ -79,7 +81,7 @@ GetTriggerUnit()..setX(1000.)
                 ..setPaused(true)
 ```
 
-*Extension functions* not only wrap existing natives, but also provide convenience functions. An improved version of the snippet above would be:
+*拓展函数* 不仅仅可以封装现存的native函数，还提供了更便利的函数。上方代码的改进版如下：
 
 ```wurst
 GetTriggerUnit()..setXY(1000., 2000.)
@@ -87,13 +89,13 @@ GetTriggerUnit()..setXY(1000., 2000.)
                 ..pause()
 ```
 
-### Vector Math
+### 向量数学
 
-Vectors are a very useful construct for positional calculations in 3d space. However, they add a lot of overhead if implemented as a class, which is why even vJass doesn't use them in any common libraries. Warcraft provides the `location` type - however, it is painful to use, and permanently leaks.
+向量是三维计算中的非常有用的结构。但是，如果以`class`的形式实现，它们会增加很多开销，这就是为什么vJass不会在任何公共库中使用它们。尽管魔兽提供了`location`类型 - 但使用`location`，并且处理点泄露是非常痛苦的。
 
-Wurst implements vectors via a [tuple-type](/manual.html#tuple-types), which don't need to be allocated and deallocated like classes/structs, but can still provide an elegant API.
+Wurst通过[元组类型](/manual.html#tuple-types)实现了向量，不需要像类、结构体那样分配和解除分配，但仍然可以提供优雅的API。
 
-vJass example:
+vJass演示:
 
 ```wurst
 struct PreviousPointTracker
@@ -111,7 +113,7 @@ struct PreviousPointTracker
 endstruct
 ```
 
-In the wurst pendant below, you can see that the vector types provide overridden operators to use with vector maths.
+在下方的wurst示例中，你可以看到向量类型使用了重载运算符来实现对向量数学的使用。
 
 ```wurst
 class PreviousPointTracker
@@ -124,39 +126,33 @@ class PreviousPointTracker
         angleToLast = pos.angleTo(oldPos)
 ```
 
-Note that we used the type `angle` instead of a plain real. This is a tuple-type and is as efficient as a normal real, but provides domain specific methods for working with angles. It also avoids some common mistakes like confusing angles in radians and degrees.
+注意我们使用了 `angle` 类型来替代使用普通的 `real` 类型。这是一个元祖类型，并且和普通的实数类型一样高效，但它提供了用于处理角度的特定方法来协助使用。此外它还能够避免一些常见的错误，比如弧度和角度的混淆。
 
-# Build, deploy, and release
+# 构建、部署和发布
 
-Think of `MyMap.w3x` as a "terrain" map. It's the place you go to make terrain, doodad, and destructable changes; and wurst uses that as a starting point when compiling a mapfile for test or release. Other changes like gameplay constants also go in the terrain map, but the point remains the same.
+把 `MyMap.w3x` 视为一个“地形”图。这张地图是你编辑场景、装饰物和可破坏物的地方。Wurst使用这张地图作为编译一张测试地图或者正式发布的地图的起始点。其他的一些变化（比如游戏逻辑相关的常量）也可以在地形图中，但编译的起始点始终是相同的。
 
-The terrain map is used read-only by wurst, meaning that wurst never edits or saves over that file. This is nice because it means you can edit the terrain in the world editor and the code in vscode at the same time.
+地形图对于Wurst来说是“只读”的，这意味着Wurst绝对不会修改或者覆盖地形图。这是一个很好的特性，意味着你可以在地图编辑器中编辑地形的同时，在VSCode中编辑你的代码。
 
-When you execute `buildmap` in vscode, the output mapfile - based on the terrain and wurst.build files, including all of your compiled code - is generated into the `/_build` folder. It's this which you can use to release and distribute your map online.
-The `runmap` command functions similar, however the map is named __WurstRunMap.w3x__, get copied into your warcraft maps folder and wc3 gets run with the appropriate arguments to run the map.  
+当你在vscode中执行 `buildmap` 时，最终的地图文件（基于地形图和wurst.build文件，以及你的所有编译后的代码）会被输出到 `/_build` 文件夹中。你可以把这里的文件发布或者分发给其他人。
+`runmap` 命令是类似的，不过地图名字始终是 __WurstRunMap.w3x__，并且Wurst将会把该地图复制到你的魔兽地图文件夹下，然后魔兽会直接运行这个地图。
 
-It's this which you can use to release your map online.
+你仍然可以将生成的地图拿去发布，不过`runmap`更多时候只用于测试地图。
 
-One other cool feature is that wurst will automatically import contents of the `imports/` directory into the built mapfile. This can be convenient for quickly adding a model file for use in a spell, for example.
+另一个很强大的特性是，Wurst会自动导入 `imports/` 文件夹内的内容到构建的地图文件中。这个特性可以协助你快速添加模型、贴图文件等等。
 
-If you want to use the imported resources inside the terrain map, copy the built mapfile from the `/_build` folder over to the project's root. Open it with the World Editor, and save it, clearing wurst's generated code. Now you'll have a terrain map with imports, which is also suitable as a starting point for the wurst editor.
+比如，如果你想要在地形图中使用导入的资源，将被生成到`/_build`目录下的地图复制到项目根目录，随后使用WE打开它、清除Wurst生成的代码后，然后保存它。你就拥有了一个带有被导入的模型、贴图等的地形图。
 
-# How to find library code
+# 如何查找函数库代码
 
-As you can see, wurst has a powerful API for the types and functions exposed by jass to write code at a slightly higher level. As a beginner, one of the your first questions will be about how to find the right library code to do what you want without resorting to jass natives. Three quick tips on that:
+正如你所看到的，Wurst拥有一个强大的API来基于Jass提供的类型和函数编写等级更高的代码。作为一个初学者，你的第一个问题可能是如何找到合适的函数库的代码来做你想做的事，而不是重新使用Jass的native函数。这里有3个提示来让你快速上手：
 
-* Take a look at the subfolders in the standard library directory to get an idea of what you might expect to find standard library code for
-* Try using autocomplete. If you have a unit `u` and you want to kill it, see what vscode can offer you by typing `u.k` followed by `ctrl-space`.
+* 查看标准库目录下的子文件夹，以了解您可能找到哪些您需要的标准库代码
+* 尝试使用自动补全功能。如果你有一个单位`u`，并且你想要杀死这个单位，你可以试试输入`u.k`后，按下`ctrl-space`键来查看vscode会给你提供哪些函数。
 * Avoid writers block. Sometimes it's better to write it the jass way and come back afterwards in case you can't find the wurst equivalent. After all, there's no reason wurst would disallow this! Keep in mind as well that wurst doesn't have fancy API equivalents for every single jass call.
 
-If you're looking for an equivalent to some vJass library found on hiveworkshop, your approach might differ a bit.
+如果您正在寻找能够替代hiveworkshop上某个vJass库功能的Wurst库或函数，您可能会需要使用一些不同的方法。
 
-* Consider if there might be something better. For example, instead of `Table`, wurst users are encouraged to use the generic `HashMap<k, v>` which makes much nicer and more type-safe code.
-* Ask around. Chances are, one of us have already translated the vJass library you like. Cokemonkey11 in particular maintains a number of maps that were previously vJass.
-* Write it yourself! We love contributions.
-
-# Part 3
-
-Coming soon!
-
-
+* 考虑是否可能有更好的东西。例如，我们鼓励Wurst用户使用通用的`HashMap<k, v>`，而不是`Table`，这使得你能够使用更安全的强类型代码。
+* 问问其他人。有时候，我们其中的一人已经翻译了你喜欢的vJass库。比如Cokemonkey11已经维护了许多先前使用vJass制作的地图。
+* 自己写一个！我们期待贡献者。
