@@ -24,7 +24,7 @@ WurstScript的许多功能依赖于电脑上配置的java环境变量。
 
 参考 [*&nbsp;*{: .fa .fa-external-link-square} 这些教程](https://www.cnblogs.com/silence9527/p/7358239.html) 来正确设置你的 **JAVA_HOME** 环境变量。
 
-打开你的按win+r,输入cmd,回车 来开启命令行窗口，输入 `java -version` 来验证你当前安装的JAVA版本。
+按win+r,输入cmd,回车 来开启命令行窗口，输入 `java -version` 来验证你当前安装的JAVA版本。
 
 如果你的Java正确安装了，就应该能够看到如下的消息：
 
