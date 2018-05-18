@@ -10,7 +10,9 @@ sections:
 
 [*&nbsp;*{: .fa .fa-download} 下载 Wurst安装程序](https://peeeq.de/hudson/job/WurstSetup/lastSuccessfulBuild/artifact/downloads/WurstSetup.jar){: .btn .btn-green}
 
-下载完成后，运行.jar开始。
+下载完成后，通过双击来运行WurstSetup.jar。
+
+如果你在国内环境打开，这个软件会启动的比较慢，大约需要30秒。
 
 ![](/assets/images/setup/WurstSetup.png){: .img-responsive}
 
@@ -19,6 +21,10 @@ sections:
 该设置将检查编译器是否已经安装。 如果没有，则需要先安装它，然后才能创建项目。
 
 要安装编译器，只需点击 **Install Wurst** 按钮。
+
+在大多数情况下，首次安装编译器可能会进入一种一直读条的状态。根据你的网络情况，你需要在等待约5分钟后关闭安装程序，并重新打开来重试，如果此时**Create Project**按钮已经可用，你可以直接创建项目了。
+如果你一切都安装完成后，vscode插件缺表现的十分不正常，你可以尝试删掉 x:\user\你的用户名\.wurst目录，并重新安装编译器。
+
 当一切完成后，安装程序应该会显示你的安装是最新的，现在 **Create Project** 按钮可以使用了：
 
 ![](/assets/images/setup/WurstInstallDone.png){: .img-responsive}
