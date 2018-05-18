@@ -30,6 +30,6 @@ WurstScript的许多功能依赖于电脑上配置的java环境变量。
 
 ![](/assets/images/setup/JavaVerify.png){: .img-responsive}
 
-如果以上命令出现了错误，你可以尝试输入 `java ` 或者 `javac ` 命令来测试环境变量是否成功配置
+如果以上命令出现了错误，你可以尝试输入 `java` 或者 `javac` 命令来测试环境变量是否成功配置
 
 当你正确安装完Java后，接着安装VSCode。
