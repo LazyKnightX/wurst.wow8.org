@@ -169,7 +169,7 @@ for i in myList // 用于标准库中的集合类型
 for A a in b
     Statements
 
-// 等效于o:
+// 等效于:
 let iterator = b.iterator()
 while iterator.hasNext()
     A a = iterator.next()
@@ -180,8 +180,6 @@ iterator.close()
 **提示**  iterator.close() 会在while类任何一个返回语句之前被调用 .
 
 如果你已经拥有了迭代器,或者想要访问其中的每一个函数,name你可以使用for-from循环, 转换也十分简单
-If you already have an iterator or want to access further functions of the iterator you can use the for-from loop.
-The translation is very similar:
 ```wurst
 let iterator = myList.iterator()
 for segment from iterator
@@ -209,7 +207,6 @@ iterator.close()
 
 使用这两个函数你也会获取一个可以用于for-from循环的迭代器
 
-To make a type usable in for-in loops you have to provide
 如果你想使某个类型能用for-in循环,你需要提供
 
 -  function **iterator()** returns Iterator
@@ -240,10 +237,8 @@ public function group.next() returns unit
 public function group.close()
     DestroyGroup(this)
 ```
-As you can see, the iterator is a group, therefore the group needs to provide the functions mentioned above.
-This is done via extension functions.
-如您所见，这个迭代器是一个单位组，因此该单位组需要提供上述功能。
-这是通过扩展函数来完成的
+
+如您所见，这个迭代器是一个单位组，因此该单位组需要提供上述函数。标准库的做法是通过扩展函数来完成的
 
 **LinkedList-Iterator**
 ```wurst
@@ -293,11 +288,9 @@ x /= y      // x = x / y
 因为这些简称只是简单地转化为它们的等价物，所以它们可以与重载运算符一起使用。
 
 # 包
-As mentioned above every code-segment written in Wurst has to be inside a _package_,
-packages define the code organization and separate name-spaces.
+
 如上所述，用Wurst编写的每个代码段都必须在_package_中，包定义代码组织和单独的名称空间。
-Packages can also have global variables - every variable that is not inside another block (function/class/module)
-is declared global for that package.
+
 包也可以有全局变量 - 每个不在函数/类/模块的变量就是全局变量.被叫做包的全局性
 
 
@@ -342,7 +335,6 @@ constant z = x
 
 变量x可用于包B，但不从B传递。因此，在包C中，我们不能使用变量x。
 我们可以通过简单地将A导入C来解决这个问题，但有时您希望避免这些导入。
-Using public imports solves this problem because they will export everything that is imported. Thus the following code will work:
 使用公开导入解决了这个问题，因为它们将传递导入的所有内容。因此，以下代码将起作用：
 
 ```wurst
@@ -370,8 +362,6 @@ constant z = x
 默认情况下，程序包的所有成员都是私有的。如果要在导入该包的包中使用它们，则必须添加关键字“public”。
 
 ## 常量
-You can declare a variable constant to prohibit changes after initialization.
-This has no impact on the generated code but throws an error when trying to compile.
 您可以声明一个变量常量来禁止这个变量初始化后被更改。这对生成的代码没有影响，但在尝试编译时会抛出错误。
 
 
@@ -427,8 +417,6 @@ Wurst的初始化规则很简单：
 然后包A的初始化程序在B之前运行。
 不允许使用不带“initlater”的循环导入。
 
-In general you should avoid cylcic dependencies between packages by moving the affected code. However if you must, you can manually define which package can be
-initialized later by adding the keyword `initlater` to the import of the package:
 通常，您应该通过移动受影响的代码来避免包之间的循环依赖关系。
 但是，如果有必要，您可以手动通过将关键字`initlater`定义将使用的包稍后初始化：
 
