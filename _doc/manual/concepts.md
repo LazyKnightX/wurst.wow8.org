@@ -179,7 +179,7 @@ iterator.close()
 
 **提示**  iterator.close() 会在while类任何一个返回语句之前被调用 .
 
-如果你已经拥有了迭代器,或者想要访问其中的每一个函数,name你可以使用for-from循环, 转换也十分简单
+如果你已经拥有了迭代器,或者想要访问其中的每一个函数,那么你可以使用for-from循环, 转换也十分简单
 ```wurst
 let iterator = myList.iterator()
 for segment from iterator
