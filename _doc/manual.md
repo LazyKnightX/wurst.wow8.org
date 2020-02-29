@@ -12,4 +12,5 @@ sections:
   - /manual/concepts
   - /manual/classes
   - /manual/concepts_advanced
+  - /manual/conventions
 ---

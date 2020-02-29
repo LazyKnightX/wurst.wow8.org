@@ -218,7 +218,7 @@ iterator.close()
 
 可以看标准库中的两个例子:
 
-**Group-Iterator**
+#### Group-Iterator
 ```wurst
 public function group.iterator() returns group
     // return a copy of the group:
@@ -240,7 +240,8 @@ public function group.close()
 
 如您所见，这个迭代器是一个单位组，因此该单位组需要提供上述函数。标准库的做法是通过扩展函数来完成的
 
-**LinkedList-Iterator**
+#### LinkedList-Iterator
+
 ```wurst
 public class LinkedList<T>
     ...

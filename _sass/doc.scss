@@ -58,30 +58,44 @@
         border-bottom: 1px solid darken($divider, 10%);
     }
 
-    h1 {
-        font-size: 24px;
-        font-weight: bold;
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #24282e;
+    clear: both;
+  }
+
+  h1 {
+    font-size: 36px;
+    letter-spacing: -.03em;
+  }
+
+  h2 {
+    font-size: 28px;
+    margin-bottom: .9em;
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    font-size: 20px;
+	margin-bottom: 8px;
+	padding-top: 8px;
+	margin-top: 8px;
+    letter-spacing: -.015em;
+
+    code {
+      font-size:16px;
+      color:var(--blackish);
     }
-    h2 {
-        font-size: 22px;
-        font-weight: bold;
-    }
-    h3 {
-        font-size: 20px;
-        font-weight: bold;
-    }
-    h4 {
-        font-size: 18px;
-        font-weight: bold;
-    }
-    h5 {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    h6 {
-        font-size: 14px;
-        font-weight: bold;
-    }
+  }
+
+  h4 {
+    font-size: 16px;
+    padding-top: 20px;
+    letter-spacing: -.015em;
+    margin-bottom: 8px;
+  }
 }
 
 .section-block {
@@ -104,7 +118,8 @@
 }
 
 .question {
-
+    margin: 4px !important;
+    padding: 4px !important;
     font-weight: 400 !important;
     color: darken($color-primary, 5%);
     .body-green {
@@ -132,12 +147,24 @@
 }
 
 .answer {
-    color: $text-color-secondary;
+    color: $color-primary;
+	margin: 4px !important;
+    padding: 4px !important;
 }
 
 .code-block {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+code {
+	background: rgba(27,31,35,0.05);
+	color: #111;
+	border-radius: 3px;
+	font-weight: normal;
+	font-family: 'SFMono-Regular', 'Roboto Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+	padding: 0.1em 0.4em;
+	display: inline-block;
 }
 
 .callout-block {
@@ -262,8 +289,11 @@
     h1 {
         font-size: 28px;
         margin-top: 0;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
+
+	padding-top: 32px;
+    padding-bottom: 16px;
 }
 
 .author-profile {
@@ -429,9 +459,22 @@
     width: 200px;
 }
 
+#doc-menu {
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.doc-menu-scroll {
+    margin-right: -50px; /* maximum width of scrollbar */
+    padding-right: 50px; /* maximum width of scrollbar */
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
 .doc-menu {
     list-style: none;
     padding-left: 0;
+    margin-bottom: 30px;
 
     & > li {
         margin-bottom: 5px;
@@ -707,7 +750,7 @@
      }
 
      .jumbotron {
-         padding: 30px 15px;
+         padding: 12px 12px;
          h1 {
              font-size: 24px;
              margin-bottom: 15px;

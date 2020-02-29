@@ -1,6 +1,8 @@
+
 /* ======= Base ======= */
 body {
-    font-family: 'Open Sans', arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	letter-spacing: -0.025em;
     color: $text-color;
     font-size: 14px;
     -webkit-font-smoothing: antialiased;
@@ -12,14 +14,48 @@ html, body {
 }
 
 .page-wrapper {
+	background: #fafafa;
     min-height: 100%;
     /* equal to footer height */
-    margin-bottom: -50px;
     &:after {
         content: "";
         display: block;
-        height: 50px;
+        height: 30px;
     }
+}
+
+blockquote {
+	background: rgba(255, 255, 255, 0.8);
+	.body-green & {
+		border-left: 5px solid $color-green;
+	}
+	.body-blue & {
+		border-left: 5px solid $color-blue;
+	}
+	.body-orange & {
+		border-left: 5px solid $color-orange;
+	}
+	.body-red & {
+		border-left: 5px solid $color-red;
+	}
+	.body-pink & {
+		border-left: 5px solid $color-pink;
+	}
+	.body-purple & {
+		border-left: 5px solid $color-purple;
+	}
+}
+
+#whywurst {
+    padding-bottom: 4px;
+	padding-top: 6px;
+	margin-top: -100px;
+}
+
+.secondWrap {
+    padding: 0;
+    margin-bottom: -50px;
+    margin-top: -10px;
 }
 
 .footer {
@@ -42,6 +78,12 @@ a {
     }
 }
 
+.imgr {
+    max-width: 100%;
+    height: auto;    
+    overflow: hidden;  
+}
+
 
 code {
     // font-weight: bold;
@@ -49,7 +91,7 @@ code {
     background-color: #fcfcfc;
     border: 1px solid #eee;
     border-radius: 10px;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-family: 'SFMono-Regular', 'Roboto Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
     padding:2px 8px;
     padding-top: 4px;
     display: inline-block;
@@ -200,6 +242,7 @@ select {
     }
 }
 
+
 .video-container iframe {
     max-width: 100%;
 }
@@ -210,11 +253,10 @@ select {
     background: $text-color;
     color: rgba(255, 255, 255, 0.85);
     border-top: 5px solid $color-primary;
-    padding: 30px 0;
-    a {
-        color: #fff;
-    }
+    padding: 20px 0px 20px 0px;
+
 }
+
 .branding {
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -298,6 +340,9 @@ select {
     color: rgba(0, 0, 0, 0.4);
 }
 
+.alertbox {
+    width: 400px;
+}
 
 /* ====== Footer ====== */
 .footer {
@@ -310,4 +355,15 @@ select {
     .fa-heart {
         color: $color-pink;
     }
+}
+
+.tag-container {
+	display: flex;
+	align-items: center;
+  	justify-content: center;
+	margin-bottom: 2rem;
+}
+
+.tag {
+	margin-right: 1rem;
 }

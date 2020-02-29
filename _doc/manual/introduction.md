@@ -174,17 +174,20 @@ var y = 5
 int z = 7
 // declaring an array
 int array a
-// arrays can be initialized as well. 
-// however this is just a shorthand assignment and doesn't provide a length attribute
+// arrays can be initialized as well.
+// however this is just a shorthand assignment
 int array b = [1, 2, 3]
 // but it allows having constant arrays
 constant c = ["A", "B", "C"]
+// Initialized arrays provide a length attribute which is equal to the initial amount of items in the array
+// It is not updated when you modify the array and mostly intended for interation
+constant blen = b.length
 
 // inside a function
-function getUnitInfo( unit u )
+function getUnitInfo(unit u)
 	let p = u.getOwner()
 	var name = u.getName()
-	print( name )
+	print(name)
 	var x = u.getX()
 	var y = u.getY()
 	let sum = x + y

@@ -102,7 +102,7 @@ struct PreviousPointTracker
     real x = 0.
     real y = 0.
     real angleToLast = 0.
-    
+
     method add(real addX, real addY) returns nothing
         local real oldX = x
         local real oldY = y
@@ -119,7 +119,7 @@ endstruct
 class PreviousPointTracker
     var pos = vec2(0., 0.)
     var angleToLast = angle(0.)
-    
+
     function add(vec2 addedVec)
         let oldPos = pos
         pos += addedVec
@@ -130,7 +130,11 @@ class PreviousPointTracker
 
 # 构建、部署和发布
 
+<<<<<<< HEAD
 把 `MyMap.w3x` 视为一个“地形”图。这张地图是你编辑场景、装饰物和可破坏物的地方。Wurst使用这张地图作为编译一张测试地图或者正式发布的地图的起始点。其他的一些变化（比如游戏逻辑相关的常量）也可以在地形图中，但编译的起始点始终是相同的。
+=======
+Think of `ExampleMap.w3x` as a "terrain" map. It's the place you go to make terrain, doodad, and destructable changes; and wurst uses that as a starting point when compiling a mapfile for test or release. Other changes like gameplay constants also go in the terrain map, but the point remains the same.
+>>>>>>> mainsite/master
 
 地形图对于Wurst来说是“只读”的，这意味着Wurst绝对不会修改或者覆盖地形图。这是一个很好的特性，意味着你可以在地图编辑器中编辑地形的同时，在VSCode中编辑你的代码。
 
