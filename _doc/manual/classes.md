@@ -502,7 +502,7 @@ be necessary in order to evolve an interface without breaking its implementing c
 
 
 
-## Generics
+## 泛型
 
 Generics make it possible to abstract from specific types and only program with placeholders
 for types. This is especially useful for container types (e.g. Lists) where we do not want to code a

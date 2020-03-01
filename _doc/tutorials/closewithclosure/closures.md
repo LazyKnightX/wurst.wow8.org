@@ -4,7 +4,7 @@ sections:
 - 闭包
 - 数据的保留
 - 在变量中保存闭包
-- 别被惹毛了(不用触发器)
+- 别被惹毛了
 ---
 
 ## 闭包
@@ -142,7 +142,9 @@ function spellEffect()
 As you can see we save the listener returned by `EventListener.add` in a variable to destroy it after 10 seconds.
 
 记住闭包不会被自动的回收,除非底层系统替你做了.标准库会销毁计划中为临时性的闭包.
-## 别被惹毛了(不用触发器)
+## 别被惹毛了
+
+(不用触发器)
 
 如在导入中提及的那一,闭包也是一个触发器的替代品,因为触发器在jass中也被用来提供自定义事件.
 代替掉使用`addAction` 并提供回调函数的函数名作为参数的方法,我们定义一个闭包接口/类,并按需保存.
@@ -181,5 +183,5 @@ init
 
 ## 结语
 
-我们希望该教程能帮助你更进一步理解这一话题.来看看[manual section](https://wurstlang.org/manual.html#lambdas-and-closures) 来获取更多信息吧.
+我们希望该教程能帮助你更进一步理解这一高级话题.来看看[manual section](https://wurstlang.org/manual.html#lambdas-and-closures) 获取更多信息吧.
 

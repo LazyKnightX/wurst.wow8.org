@@ -1,6 +1,6 @@
 ---
-title: Get close with closures
-excerpt: Learn how to master this advanced technique.
+title: 接触闭包
+excerpt: 学习并掌握先进的技术
 date: 2019-02-01
 icon:
   type: fa
