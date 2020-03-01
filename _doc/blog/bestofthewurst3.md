@@ -8,6 +8,7 @@ icon:
 color: blue
 author: Frotty
 date: 2018-01-01
+banner: /assets/images/blog/bestof3/bestOfTheWurst3Banner.jpg
 ---
 ------
 ![https://wurstlang.org](/assets/images/blog/bestof3/bestOfTheWurst3Banner.jpg){: .img-responsive}
@@ -82,7 +83,7 @@ Let's enhance our example from above with an automatically generated id which  i
 
 ```wurst
 import ObjectIdGenerator
-constant MY_UNIT_ID = compiletime(UNIT_ID_GEN.next()) 
+constant MY_UNIT_ID = compiletime(UNIT_ID_GEN.next())
 
 @compiletime function createUnit()
     new UnitDefinition(MY_UNIT_ID, 'ewsp')
@@ -111,7 +112,7 @@ import ChannelAbilityPreset
 @compiletime function generateLeap()
     new ChannelAbilityPreset(MY_LEAP_ID, LEVELS, true)
         ..presetTargetTypes(Targettype.POINT)
-        ..presetCooldown((int lvl) -> 30 - (level * 2))
+        ..presetCooldown(lvl -> 30 - (level * 2))
 ```
 
 Notice the `presetCooldown` call with the lambda expression. Next to normal setters, the standard library provides `preset*` functions that are either convenience wrappers or take closure parameters to fill multiple levels using only one call.
@@ -122,4 +123,4 @@ Notice the `presetCooldown` call with the lambda expression. Next to normal sett
 * @Frotty and @Cokemonkey11 are now approved code reviewers for Wurst on hive workshop.
 * The setup app is now an approved resource in the tools section
 
-As always, come and chat with us on [IRC](https://webchat.quakenet.org/?channels=#inwc.de-maps) or post on this thread to provide us feedback for these monthy blog posts, as well as requesting what you want us to cover next.
+As always, come and chat with us on [IRC](https://kiwiirc.com/nextclient/#irc://irc.quakenet.org/#inwc.de-maps) or post on this thread to provide us feedback for these monthy blog posts, as well as requesting what you want us to cover next.

@@ -5,7 +5,7 @@ date: 2017-07-26
 icon:
   name: icon_lifesaver
 color: purple
-layout: home
+layout: tutorials
 tagline: |
   使用劲道十足的“香肠”来撰写Jass。
   
@@ -15,4 +15,8 @@ navigation:
   - /tutorials/wurstbeginner
   - /tutorials/legacymaps
   - /tutorials/wurst_for_vjass_users
+  - /tutorials/getclose
+  - /tutorials/wurstbuild
+  - /tutorials/jhcr
+  - /tutorials/saveload
 ---

@@ -16,12 +16,12 @@ navigation:
   - /start
   - /tutorials
   - /manual
-  - /blog
+  - /stdlib
   - /showcase
   - /contact
 ---
 
-<div class="cta-container">
+<div class="cta-container" markdown="1">
 
 [*&nbsp;*{: .fa .fa-cloud-download} 下载安装程序](http://peeeq.de/hudson/job/WurstSetup/lastSuccessfulBuild/artifact/downloads/WurstSetup.jar){: .btn .btn-primary .btn-cta}
 

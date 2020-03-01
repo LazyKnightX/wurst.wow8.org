@@ -8,10 +8,17 @@ icon:
   name: fa-rss
 layout: blog
 tagline: The Best of the Wurst!
-heading: Latest Posts
+heading: All Posts
 redirect_from:
   - /blog/
 navigation:
+  - /blog/bestofthewurst10
+  - /blog/bestofthewurst9
+  - /blog/bestofthewurst8
+  - /blog/bestofthewurst7
+  - /blog/bestofthewurst6
+  - /blog/about129support
+  - /blog/bestofthewurst5
   - /blog/bestofthewurst4
   - /blog/bestofthewurst3
   - /blog/bestofthewurst2

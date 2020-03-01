@@ -4,47 +4,47 @@ sections:
 - Enums
 - Tuple Types
 - Extension Functions
+- Vararg Functions
 - Lambdas and Closures
 - Function Overloading
 - Operator Overloading
 - Annotations
 - Compiletime Execution
+- Automated Unit Tests
 ---
 
-# Enums
+## Enums
 
-In Wurst, _Enums_ can be used to set up collections of named (int) constants.
-These Constants can then be accessed via the Enum's name:
+In Wurst, __Enums__ are a shorthand wrapper for collections of named integer constants.
+Enums are not related to classes and are directly translated into the integers they represent.
+The main purpose is to add safe, comfortable API in places where otherwise ints would be used.
+
+Usage is similar to static class members via the Enum's name:
+
 ```wurst
-enum State
+enum MyUnitState
 	FLYING
 	GROUND
 	WATER
 
-init
-	State s = State.GROUND
+let currentState = MyUnitState.GROUND
 ```
-You can also use enums inside of classes
+
+Enums can be used as class members
+
 ```wurst
 class C
 	State currentState
 
-	construct( State state )
+	construct(State state)
 		currentState = state
 ```
+
 To check the current value of an enum, you can use the switch statement.
 Note that all Enummembers have to be checked (or a defaut).
+
 ```wurst
-switch currentState
-	case State.FLYING
-		print("flying")
-	case State.GROUND
-		print("ground")
-	case State.WATER
-		print("water")
-```
-In switch statements and variable assignments the qualifier can be ommited so you can also write:
-```wurst
+let currentState = MyUnitState.GROUND
 switch currentState
 	case FLYING
 		print("flying")
@@ -53,8 +53,18 @@ switch currentState
 	case WATER
 		print("water")
 ```
+Note that in switch statements and variable assignments the qualifier `MyUnitState` can be ommited.
 
-# Tuple Types
+To retrieve the int an enum member represents, simply cast it to the int type:
+
+```wurst
+print((MyUnitState.GROUND castTo int).toString()) // Will print "1"
+```
+
+The coalescent integer value starts at 0, incrementing with each succeeding enum member. So for `MyUnitState` `FLYING` will be 0, `GROUND` 1 and `WATER` 2.
+
+
+## Tuple Types
 
 With _tuple_ types you can group several variables into one bundle. This can be used to return more than one value from a function, to create custom types and of course for better readability.
 
@@ -72,11 +82,11 @@ tuple vec(real x, real y, real z)
 
 init
 	// create a new tuple value
-	vec v = vec(1,2,3)
+	let v = vec(1, 2, 3)
 	// change parts of the tuple
 	v.x = 4
 	// create a copy of v and call it u
-	vec u = v
+	let u = v
 	u.y = 5
 	if v.x == 4 and v.y == 2 and u.y == 5
 		testSuccess()
@@ -86,7 +96,7 @@ init
 
 tuple pair(real x, real y)
 init
-	pair p = pair(1,2)
+	var p = pair(1, 2)
 	// swap the values of p.x and p.y
 	p = pair(p.y, p.x)
 	if p.x == 2 and p.y == 1
@@ -103,7 +113,7 @@ examples. (Math/Vectors.wurst)
 
 
 
-# Extension Functions
+## Extension Functions
 
 Extension functions enable you to "add" functions to existing types without
 creating a new derived type, recompiling, or otherwise modifying the original
@@ -111,13 +121,13 @@ type.
 Extension functions are a special kind of static function, but they are called
 as if they were instance functions of the extended type.
 
-## Declaration
+### Declaration
 ```wurst
 public function TYPE.EXTFUNCTIONNAME(PARAMETERS) returns ...
 	BODY
 	// The keyword "this" inside the body refers to the instance of the extended type
 ```
-## Examples
+### Examples
 
 ```wurst
 // Declaration
@@ -133,9 +143,9 @@ public function int.add( int value )
 	return this + value
 
 // Usage
-unit u = CreateUnit(...)
+let u = CreateUnit(...)
 ...
-print( u.getX().half() )
+print(u.getX().half())
 
 // Also classes, e.g. setter and getter for private vars
 public function BlubClass.getPrivateMember() returns real
@@ -146,7 +156,34 @@ public function vec2.lengthSquared returns real
 	return this.x*this.x+this.y*this.y
 ```
 
-# Lambdas and Closures
+## Vararg Functions
+
+Variable argument functions can be passed an variable amount of parameters of the same type. They are most commonly used to prevent boilerplate code and provide better API.
+Inside the function, the variable arguments can be accessed via a `for .. in` loop.
+
+Example:
+```wurst
+function asNumberList(vararg int numbers) returns LinkedList<int>
+	let list = new LinkedList<int>()
+	for number in numbers
+		list.add(number)
+	return list
+
+init
+	asNumberList(1, 2, 3)
+	asNumberList(44, 14, 651, 23)
+	asNumberList(10)
+```
+
+All the calls to `asNumberList` are valid in this example and the benefit is apparent. We can pass any amount of integers (up to 31 arguments) to the function, but we only need to implement it once.
+
+### Limitations
+
+The current implementation creates a specialized function with the right number of parameters.
+Since Jass allows at most 31 parameters, function calls must not use more than 31 arguments in total.
+
+
+## Lambdas and Closures
 
 A lambda expression (also called anonymous function) is a lightweight way to provide an implementation
 of a functional interface or abstract class (To keep the text simple, the following
@@ -202,7 +239,7 @@ Remember that, because closures are just like normal objects, you also have to d
 like normal objects. And you can do all the other stuff you can do with
 other objects like putting them in a list or into a table.
 
-## Type inference
+### Type inference
 
 It is not necessary to provide the parameter types for Lambda-parameters, if they can be inferred from the context.
 Moreover, parenthesis are optional, when there is only one parameter without type or no parameter.
@@ -215,7 +252,7 @@ Predicate<int> pred = (x) -> x mod 2 == 0
 Predicate<int> pred = x -> x mod 2 == 0
 ```
 
-## begin-end expression
+### begin-end expression
 
 Sometimes one expression is not enough for a closure. In this case, the begin-end
 expression can be used. It allows to have statements inside an expression. The
@@ -223,7 +260,7 @@ begin keyword has to be followed by a newline and an increase in indentation.
 It is possible to have multiple lines of statements within:
 ```wurst
 doAfter(10.0, () -> begin
-	KillUnit(u)
+	u.kill()
 	createNiceExplosion()
 	doMoreStuff()
 end)
@@ -231,7 +268,7 @@ end)
 It is also possible to have a return statement inside a begin-end expression
 but only the very last statement can be a return.
 
-## Lambda blocks
+### Lambda blocks
 
 Often a lambda expression with begin-end-block is given as the last argument in a line.
 Wurst offers a special Syntax for this case, which fits better with the general indentation based Syntax used in Wurst.
@@ -243,7 +280,7 @@ For example, the begin-end-block above can be replaced as follows:
 
 ```wurst
 doAfter(10.0) ->
-	KillUnit(u)
+	u.kill()
 	createNiceExplosion()
 	doMoreStuff()
 ```
@@ -260,7 +297,7 @@ forUnitsOfPlayer(lastRinger) u ->
 		createUnit(players[8], DUMMY_ID, pos, facing)
 ```
 
-## Capturing of Variables
+### Capturing of Variables
 
 
 The really cool feature with lambda expressions is, that they create a *closure*.
@@ -283,17 +320,17 @@ on the respective other copy of the variable.
 This can be observed when a variable is changed after the closure is created:
 ```wurst
 var s = "Hello!"
-let func = () -> begin
+let f = () ->
 	print(s)
 	s = s + "!"
-end
+
 s = "Bye!"
 f.run()  // will print "Hello!"
 f.run()  // will print "Hello!!"
 print(s) // will print "Bye!"
 ```
 
-## Behind the scenes
+### Behind the scenes
 
 The compiler will just create a new class for every lambda expression in your code.
 This class implements the interface which is given by the context in which
@@ -319,7 +356,7 @@ class Closure implements CallbackFunc
 		s = s + "!"
 
 var s = "Hello!"
-CallbackFunc f = new Closure()
+let f = new Closure()
 // captured fields are set
 f.s = s
 s = "Bye!"
@@ -327,7 +364,7 @@ f.run()  // will print "Hello!"
 f.run()  // will print "Hello!!"
 print(s) // will print "Bye!"
 ```
-## Function types
+### Function types
 
 A lambda expression has a special type which captures the type of the parameter
 and the return type. This type is called a *function type*. Here are some examples with their type:
@@ -335,11 +372,11 @@ and the return type. This type is called a *function type*. Here are some exampl
 () -> 1
 	// type: () -> integer
 
-(real r) -> 2*r
+(real r) -> 2 * r
 	// type: (real) -> real
 
 (int x, string s) -> s + I2S(x)
-	// type: (int,string) -> string
+	// type: (int, string) -> string
 ```
 
 While function types are part of the type system, Wurst has no way to write down
@@ -355,7 +392,7 @@ However it is not possible to use lambda expressions if the type of the variable
 // will not compile, error "Could not get super class for closure"
 let pred = (int x) -> x mod 2 == 0
 ```
-## Lambda expressions as code-type
+### Lambda expressions as code-type
 
 Lambda expressions can also be used where an expression of type `code` is expected.
 The prerequisite for this is, that the lambda expression does not have any parameters
@@ -380,7 +417,7 @@ thus there is no object which has to be destroyed. The lambda expression will ju
 be translated to a normal Jass function, so there is no performance overhead when
 using lambda expressions in this way.
 
-# Function Overloading
+## Function Overloading
 
 Function overloading allows you to have several functions with the same name.
 The compiler will then decide which function to call based on the static type
@@ -433,7 +470,7 @@ with a value of type B, both functions would be viable. Other languages just tak
 "most specific type" but Wurst does not allow this. If A and B are incomparable types, the overloading is allowed.
 
 
-# Operator Overloading
+## Operator Overloading
 
 Operator Overloading allows you to change the behavior of internal operators +, -, \* and / for custom arguments.
 A quick example from the standard library (Vectors.wurst):
@@ -443,10 +480,10 @@ public function vec3.op_plus( vec3 v ) returns vec3
 	return vec3(this.x + v.x, this.y + v.y, this.z + v.z)
 
 // Usage example
-vec3 a = vec3(1.,1.,1.)
-vec3 b = vec3(1.,1.,1.)
+vec3 a = vec3(1., 1., 1.)
+vec3 b = vec3(1., 1., 1.)
 // Without Operator Overloading (the add function was replaced by it)
-vec3 c = a.add( b )
+vec3 c = a.add(b)
 // With operator Overloading
 vec3 c = a + b
 ```
@@ -459,29 +496,37 @@ In order to define an overloading function it has to be named as following:
 /  "op_divReal"
 ```
 
-# Annotations
+## Annotations
 
 Almost any definition in wurst can be annotated with one or more optionally named annotations.
 Annotations are compiletime only metadata which can be used for compiletime function, tests and `callFunctionsWithAnnotation`.
-In most cases annotations are generally disregarded unless you use them yourself. 
-List of all wurst reserved annotations:
+In most cases annotations are generally disregarded unless you use them yourself.
+As of build#1124 annotations must be defined as a top level, bodiless function using `@annotation`, in order to be valid.
 
 ```wurst
-@configurable constant SOME_VAR = 12
-@config constant SOME_VAR = 24
+@annotation public function my_annotation() // Definition
 
-@compiletime function foo()
-
-@test function someTest()
-
-@deprecated("Use .size() instead") function getSize() returns int
+@my_annotation function someOtherFunc() // Usage
 ```
 
-# Compiletime Execution
+The wurst reserved annotations are defined in the `Annotations` package.
+
+```wurst
+@annotation public function compiletime()
+@annotation public function deprecated()
+@annotation public function deprecated(string _message)
+@annotation public function compiletimenative()
+@annotation public function configurable()
+@annotation public function inline()
+@annotation public function config()
+@annotation public function extern()
+```
+
+## Compiletime Execution
 
 Wurst includes an interpreter and can execute code at compiletime, which can be useful for testing and for object editing.
 
-## Compiletime Functions
+### Compiletime Functions
 
 Compiletime Functions are functions, that are executed when compiling your script/map.
 They mainly offer the possibility to create Object-Editor Objects via code.
@@ -492,7 +537,7 @@ A compiletime function is just a normal Wurst function annotated with @compileti
 ```
 Compiletime functions have no parameters and no return value.
 
-In order to run compiletime functions you have to enable the checkbox in the Wurstpack Menu.
+Compiletime functions are run by default. You can change this with the cmdline arguments `-runcompiletimefunctions` and `-injectobjects`.
 When you use compiletime functions to generate objects, Wurst will generate the object files
 next to your map and you can import them into your map using the object editors normal import
 function. Compared to ObjectMerger this has the advantage, that you can directly see your new
@@ -520,7 +565,7 @@ function doInit()
 
 Similar to compiletime functions, Wurst also has compiletime expressions.
 As the name suggests, these are expressions, which are evaluated at compiletime.
-The result of executing the expression is the placed into the mapscript instead of the original expression.
+The result of executing the expression is placed into the mapscript instead of the original expression.
 
 The syntax for compiletime expressions is a simple function call to the `compiletime` function defined in package `MagicFunctions` in the standard library.
 This function takes one argument, which is the expression to evaluate.
@@ -528,12 +573,12 @@ This function takes one argument, which is the expression to evaluate.
 For example the following defines a global variable `blub` and initializes it with the compiletime expression `fac(5)`:
 
 ```wurst
-int blub = compiletime(fac(5))
+let blub = compiletime(fac(5))
 
 function fac(int x) returns int
     if x <= 1
         return 1
-    return x*fac(x-1)
+    return x * fac(x - 1)
 ```
 
 The factorial function is evaluated at compiletime and returns `120`.
@@ -557,7 +602,6 @@ Only a few functions are implemented in the Wurst compiler and emulate the respe
 The currently implemented functions can be found in the compiler code in the class [NativeFunctionsIO](https://github.com/wurstscript/WurstScript/blob/master/de.peeeq.wurstscript/src/main/java/de/peeeq/wurstio/jassinterpreter/NativeFunctionsIO.java).
 
 
-
 ### Object Editing Natives
 
 The standard library provides some functions to edit objects in compiletime functions.
@@ -572,62 +616,64 @@ can be found right next to your map file. You can use this code as a starting po
 Wurst also provides a higher level of abstraction. For example the package AbilityObjEditing provides many classes
 for the different base abilities of Wc3 with readable method names. That way you do not have to look up the IDs.
 
-The following example creates a new spell based on "Thunder Bolt". The created spell has the ID "A005".
+The following example creates a new spell based on "Thunder Bolt". The created spell has the ID "A005" for illustratory purpose.
+In proper code you should generate your IDs so you don't have to deal with them directly. See [this blog entry](https://wurstlang.org/blog/bestofthewurst3.html#objectediting%20)
 In the next line the name of the spell is changed to "Test Spell".
-Level specific properties are changed inside the loop.
+Level specific properties are changed using level closures, which calculate values for all levels.
+
 ```wurst
 package Objects
 import AbilityObjEditing
 
 @compiletime function myThunderBolt()
 	// create new spell based on thunder bolt from mountain king
-	let a = new AbilityDefinitionMountainKingThunderBolt("A005")
+	new AbilityDefinitionMountainKingThunderBolt("A005")
 	// change the name
-	a.setName("Wurst Bolt")
-	a.setTooltipLearn("The Wurstinator throws a Salami at the target.")
-	for i=1 to 3
-		// 400 damage, increase by 100 every level
-		a.setDamage(i, 400. + i*100)
-		// 10 seconds cooldown
-		a.setCooldown(i, 10.)
-		// 0 mana, because no magic is needed to master Wurst
-		a.setManaCost(i, 0)
-		// ... and so on
+	..setName("Wurst Bolt")
+	..setTooltipLearn("The Wurstinator throws a Salami at the target.")
+	// 400 damage, increase by 100 every level
+	..presetDamage(lvl -> 400. + lvl * 100)
+	// 10 seconds cooldown
+	..presetCooldown(lvl -> 10.)
+	// 0 mana, because no magic is needed to master Wurst
+	..presetManaCost(lvl -> 0)
+	// ... and so on
 ```
 
-*NOTE* There are also packages for other object types, but those packages are even more WIP.
-
-
+> *NOTE* Packages exist for all object types.
 
 ## Automated Unit Tests
 
-You can add the annotation @test to a function. Then when you type "tests" into the Wurst Console all functions
-annotated with @test are executed.
+You can add the annotation `@Test` to any function. Open the task runner `F1` and type `run test` to see the available commands. You can either run the test under cursour, all in the package or all tests overall.
 
-You have to import the Wurstunit package to use functions like assertEquals.
+To perform assertions you need to import the `Wurstunit` package.
 
 Example:
+
 ```wurst
 package Test
 import Wurstunit
 
-@test public function a()
-	12 .assertEquals (3*4)
+@Test public function a()
+	12 .assertEquals(3 * 4)
 
-@test public function b()
-	12 .assertEquals (5+8)
+@Test public function b()
+	12 .assertEquals(5 + 8)
 ```
+
 If you run this, you get the following output:
-```wurst
-> 1+1
-res = 2     // integer
-> tests
-1 tests OK, 1 tests failed
-function b (Test.wurst, line 8)
-	test failed: expected 13 but was 12
-	at stmtreturn  (.../lib/primitives/Integer.wurst, line 25)
->
-```
-The first line is just to check whether the console is working ;)
 
-You can search the standard library for "@test" to get some more examples.
+```
+Running <PlayerData:114 - a>..
+	OK!
+Running <PlayerData:117 - b>..
+	FAILED assertion:
+	Test failed: Expected <13>, Actual <12>
+... when calling b() in PlayerData.wurst:117
+... when calling int_assertEquals(12, 13) in PlayerData.wurst:118
+
+Tests succeeded: 1/2
+>> 1 Tests have failed!
+```
+
+You can search the standard library for "@Test" to get some more examples.

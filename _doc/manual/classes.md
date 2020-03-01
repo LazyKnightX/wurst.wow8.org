@@ -94,8 +94,8 @@ class Pair
         b += pC
 
 function test()
-    let p = new Pair(2,4)
-    let p2 = new Pair(3,4,5)
+    let p = new Pair(2, 4)
+    let p2 = new Pair(3, 4, 5)
 ```
 
 
@@ -187,15 +187,6 @@ class Rectangle
 `译注:封闭包的概念极少用到,实际上或protected这个修饰符也比较少用`
 
 ## 继承
-A class can _extend_ an other class. The class then inherits all the non-private functions and variables from that class
-and can be used anywhere where the super class can be used.
-
-Constructors of the class have to specify how the super class should be constructed. This is done using a _super_ call,
-which defines the arguments for the super constructor. There can not be any statement before this call.
-
-If a constructor does not provide a super call, the compiler tries to insert a super call with no arguments.
-
-Functions inherited from super classes can be overridden in the subclass. Such functions have to be annotated with _override_.
 
 一个类可以扩展另一个类。
 
@@ -259,10 +250,10 @@ init
 使用子类型时，类型转换有时很有用。如果你有一个类型A的实例a但是如果你知道对象的动态类型是B，则可以将对象强制转换为B以更改类型。
 
 ```wurst
-class A
+class Shape
 
-class B extends A
-    function special()
+class Triangle extends Shape
+    function calculate()
         ...
 
 init
@@ -287,13 +278,13 @@ Wurst在访问类实例时具有多态功能。
 ### 例子 1
 
 ```wurst
-class A
+class Recipe
     function printOut()
-        print("I'm A")
+        print("I'm a recipe")
 
-class B extends A
+class SwordRecipe extends Recipe
     override function printOut()
-        print("I'm B")
+        print("I'm a sword recipe")
 
 init
     A a = new B()
@@ -389,7 +380,7 @@ class A
 class B extends A
 
 init
-    let a = new B()
+    A a = new B()
 
     if a instanceof B
         print("It's a B")
@@ -498,7 +489,7 @@ class ExampleClass implements Interface1, Interface2, ...
 有了接口（如果是隐式的，还有模块），现在可以上下转换任何实现它的类。
 这对于保存来自仅在1个集合列表或者数组中继承1个接口的类的所有实例特别有用
 
-## Defender methods
+### Defender methods
 
 接口可以具有带有实现的函数。当实现接口的类不提供方法本身的实现。
 通常这是不需要的，但在某些情况下可能为了在不破坏接口实现类的情况下实现接口，必须这样做。
@@ -511,7 +502,7 @@ be necessary in order to evolve an interface without breaking its implementing c
 
 
 
-# Generics
+## 泛型
 
 Generics make it possible to abstract from specific types and only program with placeholders
 for types. This is especially useful for container types (e.g. Lists) where we do not want to code a
@@ -566,7 +557,7 @@ function unitFromIndex(int index) returns unit
     data.saveFogState(0,ConvertFogState(index))
     return data.loadUnit(0)
 ```
-## Generic Functions
+### Generic Functions
 
 Functions can use generic types. The type parameter is written after the name of the function.
 In the following example the function *forall* tests if a predicate is true for all elements in a list.
@@ -605,7 +596,7 @@ function LinkedList<T>.forall<T>(LinkedListPredicate<T> pred) returns boolean
         ...
 ```
 
-# Modules
+## Modules
 
 A _module_ is a small package which provides some functionality for classes. Classes can _use_ modules to inherit the functionality of the module.
 
@@ -613,7 +604,7 @@ You can use the functions from the used module as if they were declared in the c
 
 If you know object oriented languages like Java or C#: Modules are like abstract classes and using a module is like inheriting from an abstract class but *without the sub-typing*. Modules encapsulate behaviour that you might want to add to several classes, without overhead and hierarchical structure. 
 
-## Example 1
+### Example 1
 
 In this example we just have a class which uses a module A. The resulting program behaves as if the code from module A would be pasted into Class C.
 
@@ -626,7 +617,7 @@ class C
     use A
 ```
 
-## Example 2
+### Example 2
 
 Modules are more than just a mechanism to copy code. Classes and modules can override functions defined in used modules:
 
@@ -651,7 +642,7 @@ module PositiveIntContainer
             IntContainer.setX(x)
 ```
 
-## Visibility & Usage Rules
+### Visibility & Usage Rules
 
  * Variables of modules are always private
  * private functions are only usable from the module itself
@@ -660,16 +651,16 @@ module PositiveIntContainer
     * you can use a module with *private* (not implemented yet). This will let you use the functionality of the module without exposing its functions to the outside.
 
 
-## Overriding Functions
+### Overriding Functions
 
  * You can *override* functions which are defined in used modules by writing the override keyword in front of a function.
  * If two modules are used, which have the same function, it *must* be overridden by the underlying class or module in order to avoid ambiguousness (of course this is only possible if the function signatures match. We are thinking about a solution for this)
  * private functions cannot be overridden
 
-## Abstract Functions
+### Abstract Functions
 
 Modules can declare abstract functions: Functions without a given implementation. Abstract functions have to be implemented by the underlying classes.
 
-## Thistype
+### Thistype
 
 You can use _thistype_ inside a module to refer to the type of the class which uses the module. This can be useful if you need to cast the class to an integer and back.
