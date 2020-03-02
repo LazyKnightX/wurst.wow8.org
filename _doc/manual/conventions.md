@@ -1,88 +1,99 @@
 ---
-title: Coding Conventions
+title: 代码规范
 sections:
-- Source Code Organization
-- Naming Rules
-- Formatting
-- Documentation comments
-- Avoiding warnings
-- Idiomatic use of language features
+- 源码的组织结构
+- 命名规则
+- 格式化
+- 文档注释
+- 避免warnings
+- 通顺的使用语言特性
 ---
 
-Coding Conventions describe a set of rules that aren't directly enforced as errors by the language, but still commonly accepted guidelines among developers to produce consistently structured and formatted code.
+代码规范描述了一套规则,这些规则不会强制生成errors,但在开发者间作为建议被广泛接受,以生成一致并规范的代码.
 
-### Source Code Organization
 
-#### Directory structure
+### 源码的组织结构
 
-All your packages should be inside the `wurst/` folder of your project. You can have any custom folder structure inside the `wurst/` folder, as packages are not affected by it. Folders should be used to group together packages and files.
+#### 文件结构
 
-#### Source file names
+你的所有包应该丢进你工程的`wurst/`文件夹里。你可以在这个文件夹内创建任何形式的自定义文件夹结构,因为包不会受到文件夹结构的影响.
 
-If a `.wurst` file contains a single class or tuple (with potentially closely related declarations), its name should be the same as the name of the class or tuple. If a file contains multiple classes, tuples or just top-level declarations, choose a name describing what the file contains. multiple words, use camel case (e.g. `ClosureEvents.wurst`).
+文件夹应该用来组织包和文件.
 
-#### Source file organization
+#### 源文件名
 
-Placing multiple declarations (classes, tuples, top-level functions) in the same Wurst source file is encouraged as long as these declarations are closely related to each other semantically and the file size remains reasonable (not exceeding a few hundred lines).
 
-#### Class layout
+如果一个 `.wurst` 文件只包含一个类或者元组(with potentially closely related declarations), 则该文件应该与该类或元组同名.如果一个文件包含多个类,元组,或者仅仅是一些顶部声明,那么选个能描述这个文件包含什么内容的名字.多个单词用驼峰命名法.(比如 `ClosureEvents.wurst`).
 
-In general, the contents of a class are sorted in the following order:
-* Variable member declarations
-* Constructors
-* Function declarations
+#### 源文件的组织
+我们鼓励把多个声明(类,元组,顶层的函数)放置在同一wurst源文件中的行为,只要这些声明在语义上高度关联.并且文件的长度足够合理(没有超过几百行)
 
-Do not sort the function declarations alphabetically, and do not separate regular functions from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom would be able to follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa) and stick to it. The API of a package should be at the top, immediately visible once opening it, including a hot doc description.
+#### 类的布局
 
-Put nested classes next to the code that uses those classes. If the classes are intended to be used externally and aren't referenced inside the class, put them in the end.
+通常来说,类的内容以如下顺序保存.
+* 成员变量的声明
+* 构造函数
+* 一般函数声明
 
-#### Interface implementation
+不要按字母序来排列函数声明,不要在扩展方法中分离常规函数.作为替代,将相关联的事物放在一起,这样的话如果有人自上而下阅读该类的时候,就能够搞清楚发生了什么.选择一个组织的顺序(要么更高层次的事物优先,或者与之相反),并长久的保持这样的习惯.包的API应该放在文件顶部,并配上一个文档说明,使得其他开发者能开门见山的看到。
 
-When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary, interspersed with additional private methods used for the implementation)
+将嵌套的类放在使用这些类的代码旁,如果这些类被设计为外部使用的,并且在类(文件?)内部没有被引用.则将他们放置在最后.
 
-#### Overload layout
 
-Always put overloads next to each other in a class.
+#### 实现接口
+实现接口的时候,保持接口的成员在实现中的顺序与在接口中声明的顺序一致.(如有需要的话,也可以跟该实现使用的额外私有方法一起散置开,)
 
-### Naming Rules
 
-Wurst follows naming conventions similar to Java. In particular:
+#### 重载布局
 
-Names of packages and classes always start uppercase and use camel case (MyExamplePackage).
+在一个类中,把相同的重载放在一起
 
-Names of classes start with an upper case letter and use camel case.
 
-Names of tuples start with a lower case letter and use camel case.
+### 命名规则
+Wurst和Java的命名规则类似,特别要强调的是:
 
-Names of functions, properties and local variables start with a lower case letter and use camel humps and no underscores.
+包名和类名开头大写,并用驼峰命名法
+ (MyExamplePackage).
 
-Names of top-level constants (marked with `constant` or `let`) should use uppercase underscore-separated names.
+类名开头大写,并用驼峰命名法
 
-#### Choosing good names
+元组名开头小学,并用驼峰命名法
 
-The name of a class or tuple is usually a noun or a noun phrase explaining what the class is: `LinkedList`, `InstantDummyCaster`.
+函数,属性,局部变量开头小写,用驼峰而非下划线
 
-The name of a function is usually a verb or a verb phrase saying what the method does: `add`, `castImmediate`. The name should also suggest if the method is mutating the object or returning a new one.
+常量名使用全大写的下划线分割命名法.
 
-The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words (Manager, Wrapper etc.) in names.
 
-When using an acronym as part of a declaration name, capitalize it if it consists of two letters (`IOTaskExecutor`); capitalize only the first letter if it is longer (`LzwCompressor`, `Wc3String`).
+#### 选一个好名字
 
-### Formatting
+类名和元组名通常应该是名词或者名词组成的短句,以解释这个类或者元组是什么:
+`LinkedList`, `InstantDummyCaster`.
 
+函数名通常是动词或者动词短语,以解释这些方法的作用: `add`, `castImmediate`.
+该名字应该提示该方法是否修改了对象或返回了一个新对象
+
+名字应该凸显出该实例的目的.所以最好不要用无意义的单词:(Manager, Wrapper etc.) 
+
+在用缩写命名的时候,如果缩写仅为两个字符,两个字符都大写
+ (`IOTaskExecutor`); 更长的话则单单大写首字符(`LzwCompressor`, `Wc3String`).
+
+### 格式化
+
+通常情况下,Wurst遵循JAVA的代码规范.
 In most cases, Wurst follows the Java coding conventions.
 
-Use either 4 spaces or tabs for indentation. But don't mix the two in the same file.
+使用4个空格或者tap来做缩进.不要在同一个文件中混用两者
 
-#### Horizontal whitespace
 
-Put spaces around binary operators (`a + b`).
+#### 平行的空格
 
-Do not put spaces around unary operators (`a++`)
+在二元操作符间添加空格 (`a + b`).
 
-Put single spaces between control flow keywords (`if`, `switch`, `for` and `while`) and the following expression. Do not use parenthesis unless it improves the readability of big terms.
+一元操作符不要添加空格(`a++`)
 
-Do not put a space before an opening parenthesis in a method declaration or method call.
+在流程控制的关键词间加一个单一的空格(`if`, `switch`, `for` and `while`) ,并跟着表达式,如果不是为了提升可读性,不要用括号.
+
+函数的调用和声明,在开括号(`就是()`)前不要有空格.
 
 ```wurst
 function foo(int x)
@@ -91,17 +102,19 @@ init
     foo(1)
 ```
 
-Never put a space after `(`, `[`, or before `]`, `)`.
+不要在 `(`, `[`之前,或`]`, `)`之后加空格.
 
-Never put a space around `.` or `..`
+不要在 `.` 或 `..` 周围加空格
 
-Put a space after `//`: `// This is a comment`
+在注释后跟一个空格 `//`: `// This is a comment`
 
-Do not put spaces around angle brackets used to specify type parameters: `class HashMap<K, V>`
+不要在用来指定参数类型的尖括号周围加空格
+`class HashMap<K, V>`
 
-As a general rule, avoid horizontal alignment of any kind. Renaming an identifier to a name with a different length should not affect the formatting of either the declaration or any of the usages.
+作为通用的规则,避免任何形式的水平排列.将一个标识符重命名为不同的长度不应该影响声明和使用的格式.
 
-#### Lambda formatting
+
+#### Lambda 格式
 
 In lambda expressions, spaces should be used around the `begin` and `end` keywords, as well as around the arrow which separates the parameters from the body. If a call takes a single lambda, it should be passed outside of parentheses whenever possible. Prefer putting lambda parameters as the last argument, so it can be written without `begin` and `end`.
 

@@ -1,19 +1,19 @@
 ---
-title: Advanced Concepts
+title: 高级概念
 sections:
-- Enums
-- Tuple Types
-- Extension Functions
-- Vararg Functions
-- Lambdas and Closures
-- Function Overloading
-- Operator Overloading
-- Annotations
-- Compiletime Execution
-- Automated Unit Tests
+- 枚举
+- 元组类型
+- 拓展函数
+- 不定参函数
+- Lambdas和闭包
+- 函数重载
+- 操作符重载
+- 注解
+- 编译时执行
+- 自动化单元测试
 ---
 
-## Enums
+## 枚举
 
 In Wurst, __Enums__ are a shorthand wrapper for collections of named integer constants.
 Enums are not related to classes and are directly translated into the integers they represent.
@@ -64,7 +64,7 @@ print((MyUnitState.GROUND castTo int).toString()) // Will print "1"
 The coalescent integer value starts at 0, incrementing with each succeeding enum member. So for `MyUnitState` `FLYING` will be 0, `GROUND` 1 and `WATER` 2.
 
 
-## Tuple Types
+## 元组类型
 
 With _tuple_ types you can group several variables into one bundle. This can be used to return more than one value from a function, to create custom types and of course for better readability.
 
@@ -113,7 +113,7 @@ examples. (Math/Vectors.wurst)
 
 
 
-## Extension Functions
+## 拓展函数
 
 Extension functions enable you to "add" functions to existing types without
 creating a new derived type, recompiling, or otherwise modifying the original
@@ -156,7 +156,7 @@ public function vec2.lengthSquared returns real
 	return this.x*this.x+this.y*this.y
 ```
 
-## Vararg Functions
+## 不定参函数
 
 Variable argument functions can be passed an variable amount of parameters of the same type. They are most commonly used to prevent boilerplate code and provide better API.
 Inside the function, the variable arguments can be accessed via a `for .. in` loop.
@@ -183,7 +183,7 @@ The current implementation creates a specialized function with the right number 
 Since Jass allows at most 31 parameters, function calls must not use more than 31 arguments in total.
 
 
-## Lambdas and Closures
+## Lambdas和闭包
 
 A lambda expression (also called anonymous function) is a lightweight way to provide an implementation
 of a functional interface or abstract class (To keep the text simple, the following
@@ -417,7 +417,7 @@ thus there is no object which has to be destroyed. The lambda expression will ju
 be translated to a normal Jass function, so there is no performance overhead when
 using lambda expressions in this way.
 
-## Function Overloading
+## 函数重载
 
 Function overloading allows you to have several functions with the same name.
 The compiler will then decide which function to call based on the static type
@@ -470,7 +470,7 @@ with a value of type B, both functions would be viable. Other languages just tak
 "most specific type" but Wurst does not allow this. If A and B are incomparable types, the overloading is allowed.
 
 
-## Operator Overloading
+## 操作符重载
 
 Operator Overloading allows you to change the behavior of internal operators +, -, \* and / for custom arguments.
 A quick example from the standard library (Vectors.wurst):
@@ -496,7 +496,7 @@ In order to define an overloading function it has to be named as following:
 /  "op_divReal"
 ```
 
-## Annotations
+## 注解
 
 Almost any definition in wurst can be annotated with one or more optionally named annotations.
 Annotations are compiletime only metadata which can be used for compiletime function, tests and `callFunctionsWithAnnotation`.
@@ -522,7 +522,7 @@ The wurst reserved annotations are defined in the `Annotations` package.
 @annotation public function extern()
 ```
 
-## Compiletime Execution
+## 编译时执行
 
 Wurst includes an interpreter and can execute code at compiletime, which can be useful for testing and for object editing.
 
@@ -642,7 +642,7 @@ import AbilityObjEditing
 
 > *NOTE* Packages exist for all object types.
 
-## Automated Unit Tests
+## 自动化单元测试
 
 You can add the annotation `@Test` to any function. Open the task runner `F1` and type `run test` to see the available commands. You can either run the test under cursour, all in the package or all tests overall.
 

@@ -1,21 +1,20 @@
 ---
-title: Introduction Part Three
+title: 介绍 (Part 3)
 sections:
-- Let's make a spell
-- Imports
-- Buff Effect
-- Buff Map
-- How to find library code
-- Closing Words
+- 来做个技能吧
+- 导入
+- Buff效果
+- Buff map
+- 结语
 ---
 
 ------
 
-# Let's make a spell
+# 来做个技能吧
 
-We created an example spell in [march's blog post](https://wurstlang.org/blog/bestofthewurst5.html). You should check it out!
+我们制作了一个技能样例,你可以点击这里查看[march's blog post](https://wurstlang.org/blog/bestofthewurst5.html). 
 
-Let's take a closer look at the code.
+让我们进一步看一下这些代码.
 
 ```wurst
 package Conflagration
@@ -47,26 +46,35 @@ init
 				buffMap.put(u, cb)
 ```
 
-## Imports
+## 导入
 
-We import various packages to make the process of spell creation easier. `ClosureTimers` and `ClosureForGroups` allow us to easily handle delayed code (`doAfter`) and group enums(`forUnitsInRange`). `ClosureEvents` gives us a nicer API to wc3 events, including closures. At last `HashMap` allows us to attach arbitrary data to other data - in this example we attach our Buff effect to the target unit.
+为了让技能创建的过程更加的方便,我们导入了不少包.`ClosureTimers` 和 `ClosureForGroups`能帮助我们更好的处理在 (`doAfter`) 和单位组选取(`forUnitsInRange`)中的代码. `ClosureEvents` 给了我们更好的事件API, 包括闭包. 最后 `HashMap` 使得我们为其他数据绑定任意数据 - 在这儿我们用来将buff效果绑定在目标单位上.
 
-## Buff Effect
+## Buff效果
 
-The spell works like this: We listen to a specific spell event using `EventListener.onPointCast`. The lambda block contains our event callback. Inside the callback we create the meteor effect using `flashEffect` at the appropriate positions. Since the effect takes some time to hit the ground, we also want our damage effect to be delayed. Thus we start a timer using `doAfter(SPELL_EFFECT_DURATION) ->`.
-In this case the lambda block is executed once the chosen amount of time has passed. Now that the special effect has landed on the ground, we apply damage to all units inside a circular area around the target position.
-We use `forUnitsInRange(tpos, SPELL_RADIUS) u ->` to have all units inside the range near the target possition passed to the lambda function. This is the `u` in front of the arrow `->` in `SPELL_RADIUS) u ->`.
-Inside the lambda block we now refer to u as one of the units that is in range, and apply our effects.
+这个技能是这样工作的:我们使用`EventListener.onPointCast`监听一个特殊的技能释放事件.在lambda区块内写上我们的事件回调.回调函数中我们使用`flashEffect`在合适的位置创建了一个彗星特效.由于技能特效需要花费一定的时间掉落在地上,我们同样希望能够延迟技能的伤害效果.因此用`doAfter(SPELL_EFFECT_DURATION) ->`启用了一个计时器
 
-In case the unit already has the affect, we apply some extra damage and flash an effect in the following if-statement. After that we apply the normal spell damage and add the dummybuff ability to the target (if the unit already has the ability it just has no effect).
-The next if branch checks whether the buffmap already has an entry for our unit - if that's the case, we destroy the existing timer to end the buff.
-Then we start the new timer to end the buff when it exceeded it's duration.
+这个紧跟着的新lambda区块内的代码会在一段时间后被执行.
 
+现在假设特效已经着陆了,我们就可以给目标点圆范围内的所有单位施加伤害.
+
+我们用 `forUnitsInRange(tpos, SPELL_RADIUS) u ->` 选取目标范围内的所有单位,并传递给接下来的lambda函数. 注意`SPELL_RADIUS) u ->`这儿有个 `u`在箭头前 `->`.
+
+在Lambda区块中,我们现在就可以通过u来引用这些在范围内的单位,并应用我们的特效.
+
+这种情况下,如果有的单位已经受到了buff的影响,我们施加一些额外的伤害,并且在接下来的If语句中创建一个即刻的特效.之后我们做常规的操作,施加普通的技能伤害,并给目标添加buff的技能马甲.(如果某个单位已经有了这个技能,就不会有任何影响.)
+
+接下来的分支中我们判断了buff map中是否有一个条目是当前单位,如果是,我们销毁当前存在的计时器,以实现后来的重新计时.
+
+之后,我们新建一个计时器,用来在buff持续时间结束后销毁buff.
+
+
+`译注:这个技能会在单位拥有buff的时候造成双倍伤害.`
 ## Buff Map
 
-`let buffMap = new HashMap<unit, CallbackSingle>()` Here we create the buffmap we talked about. Basically it allows us to save one closures instance from `ClosureTimers` per unit, that refers to a running timer for a buffs duration.
+`let buffMap = new HashMap<unit, CallbackSingle>()`
+在这儿我们创建了一个之前提到的buffmap.基本上来说它让我们为每个单位保存一个`ClosureTimers`的闭包实例,这个闭包实例指代一个用来控制buffs持续时间的计时器.
 
-# Closing Words
 
-We hope this guide helped you to get started right away with developing your map on wurst.
-If you have further questions or would like to hang out with wurst people, drop by our [Chat](https://kiwiirc.com/nextclient/#irc://irc.quakenet.org/#inwc.de-maps).
+# 结语
+我们由衷的希望这篇指南能够帮助你开始wurst地图开发之旅.如果你还有更多的疑问,或者想要和更多的wurst开发者交朋友,欢迎戳这里[Chat](https://kiwiirc.com/nextclient/#irc://irc.quakenet.org/#inwc.de-maps).
