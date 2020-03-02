@@ -35,7 +35,7 @@ sections:
 
 ## Jurst dialect
 
-Jurst是Wurst的一个方言,功能和Wurst类似,但是具有类似vjass的语法.你可以使用Jurst去兼容vjass代码.但是由于支持特性的差异,这儿依然有一些你需要手动需要做的步骤,
+Jurst是Wurst的一个方言,功能和Wurst类似,但是具有类似vjass的语法.你可以使用Jurst去兼容vjass代码.但是由于支持特性的差异,这儿依然有一些你需要手动做的步骤,
 
 Jurst也允许解析常规的jass代码,使得wurst和jass的混编更加的宽松.
 
@@ -63,5 +63,5 @@ package NearlyTheSameAsWurst
 
 // Note: "end" intentionally not present here.
 ```
-如果你所见,Jurst能够访问wurst代码,包括wurst的标准库内的包,比如print之类的.不过,在Wurst包内,你无法访问Jurst代码
+如你所见,Jurst能够访问wurst代码,包括wurst的标准库内的包,比如print之类的.不过,在Wurst包内,你无法访问Jurst代码
 
