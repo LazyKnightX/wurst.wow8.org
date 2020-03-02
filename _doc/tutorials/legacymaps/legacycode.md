@@ -28,18 +28,18 @@ sections:
 
 ![](/assets/images/legacy/war3map.j.png){: .img-responsive .img-rounded}
 
-This file as __all .j files will not be autmatically reconciled__. This means wurst will use a cached version and not detect errors nor take changes into account unless you clean your workspace via `F1 -> clean`.
-Also, if you make changes to the war3map.j and want them applied to the map, you have to add the RunArg **-noExtractMapScript**
-to your wurst_run.args file, which will prevent the script extraction from the map and use the provided war3map.j inside the wurst folder instead.
+这些文件和所有的J文件一样,__不会被自动的核对更新__.这意味着Wurst会使用一个缓存的版本,而不是去考虑检测错误亦或者改变什么,除非你通过`F1 -> clean`清空工作空间。
+所以,如果你改动了war3map.j,并且希望这些改动能作用于地图,你必须在你的wurst_run.args文件添加运行参数 **-noExtractMapScript**,这样能阻止从地图中导出脚本,并使用在wurst文件夹内所提供的war3map.j.
 
 ![](/assets/images/legacy/uselegacycode.png){: .img-responsive .img-rounded}
 
 ## Jurst dialect
 
-Jurst is a dialect of Wurst, which has the same features as Wurst, but with a Syntax similar to vJass. You can use Jurst to adapt vJass code, but there are still a few manual steps involved, because of the difference in supported features.
-Jurst also allows for parsing of regular Jass code, making it a less strict mix of Jass and Wurst.
-Take a look at these following examples, which all compile:
+Jurst是Wurst的一个方言,功能和Wurst类似,但是具有类似vjass的语法.你可以使用Jurst去兼容vjass代码.但是由于支持特性的差异,这儿依然有一些你需要手动需要做的步骤,
 
+Jurst也允许解析常规的jass代码,使得wurst和jass的混编更加的宽松.
+
+看看下面这些例子,皆可以编译通过:
 ```wurst
 library LooksLikeVjass initializer ini
     private function ini takes nothing returns nothing
@@ -63,6 +63,5 @@ package NearlyTheSameAsWurst
 
 // Note: "end" intentionally not present here.
 ```
-
-As you can see, Jurst is able to access wurst code including packages from the wurst standard library, such as print. However, you should not try to access Jurst (or jass/vjass) code from Wurst packages.
+如果你所见,Jurst能够访问wurst代码,包括wurst的标准库内的包,比如print之类的.不过,在Wurst包内,你无法访问Jurst代码
 

@@ -3,7 +3,7 @@ title: 高级概念
 sections:
 - 枚举
 - 元组类型
-- 扩展函数
+- 拓展函数
 - 不定参函数
 - Lambdas和闭包
 - 函数重载
@@ -113,7 +113,7 @@ examples. (Math/Vectors.wurst)
 
 
 
-## 扩展函数
+## 拓展函数
 
 Extension functions enable you to "add" functions to existing types without
 creating a new derived type, recompiling, or otherwise modifying the original
