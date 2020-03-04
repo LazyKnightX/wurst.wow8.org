@@ -1,21 +1,22 @@
 ---
-title: The wurst.build file
+title: wurst.build文件
 sections:
-- Welcome
-- File Structure
-- Dependencies
+- 欢迎
+- 文件结构
+- 依赖
 ---
 
-## Welcome
+## 欢迎
 
+这篇教程记载了如何将wurst安装工具和wurst.buid文件组合起来,以创造一个无版本冲突的地图以及工程的配置的方法.
 This tutorial documents the usage of the wurst setup tool in combination with the wurst.build file to create versionable map and project configuration.
 
-## File Structure
+## 文件结构
 
-The `wurst.build` file is a yaml file that must reside at the root of your project. The `wurst` folder therefore should be right next to it.
-This file controls your project's dependencies and how the map is configured upon a build task.
-All values in this file are optional. Incomplete or invalid config will be completed by using the map's existing configuration and default values.
-The following is a complete wurst.build file with all fields containing the default values. If you are not changing this default values, you can omit the fields.
+`wurst.build`文件是一个yaml文件,必须放在你工程的根目录下,理论上而言应该是靠近`Wurst`文件夹的文件.
+这个文件控制着你的工程的依赖项,以及build task如何配置你的地图.
+所有的值皆是可选的.不完整或者无效的配置会被地图已经存在的配置以及默认值所替换.下面是一个完整的,所有的域皆是默认值的wurst.build文件,如果你不想改变这些默认值,你可以忽视掉这些域.
+
 
 ```yml
 projectName: Escape Builder Reloaded
@@ -59,12 +60,14 @@ buildMapData:
       sharedControlAdvanced: false
 ```
 
-## Dependencies
+## 依赖
 
+如今的安装不会锁定版本,但是将来会考虑这个功能.依赖链则不会被解析.
 The setup does no version locking for now, but this is planned for a future version. Transitive dependencies will not be resolved.
 
-A dependency is a simple url to a public git repo, which can be pulled by the setup.
-Projects created by the setup include the standard library dependency by default: `https://github.com/wurstscript/wurstStdlib2`.
+依赖需要填写一个公共git repo的简单url,将会被setup程序拉去.
 
-To add a dependency, add an entry with a valid git https url. Then update your project via the setup UI or CLI `grill -projectDir ~./Documents/MyProject/ update`.
+默认情况下,setup程序安装的工程会包含标准库 `https://github.com/wurstscript/wurstStdlib2`
+
+如果你要添加一个依赖,那添加一行有效的git https url.然后通过setup UI或者CLI更新你的工程项目 `grill -projectDir ~./Documents/MyProject/ update`.
 

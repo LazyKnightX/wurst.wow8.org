@@ -1,43 +1,42 @@
 ---
-title: High level API
+title: 高级API
 sections:
-- Welcome
-- Behind the scenes
-- Save Data
-- Load Data
-- Limitations and Chunking
+- 欢迎
+- 背后原理
+- 保存数据
+- 载入数据
+- 极限和分区
 ---
 
-## Welcome
+## 欢迎
+标准库有一套简单的API用以保存,载入和同步玩家数据.导入
+ `SaveLoadData`来使用他
 
-The standard library comes with an easy to use API to save, load and sync player data.
-Import the `SaveLoadData` package to use the following code examples.
+## 背后原理
+载入和保存包在内部使用利用preload的行为,这也是如今暴雪官方建议并鼓励的,用于魔兽3根目录下的自定义地图数据文件夹(CustomMapData)载入和保存自定义地图数据的方式.
+数据从指定玩家那儿读入,因此只会载入到玩家个人的机器上,在同步环境下(`译:多人联机`),需要通过与其他玩家同步才能使用这些数据.
+但Wurst把这些东西进了简单的API中,所以你可以不用关心这方面的细节.
 
-## Behind the scenes
 
-Internally the save load packages make use of the preload exploit, which is now officially endorsed by blizzard to save and load files from the CustomMapData folder in your Warcraft III Document root.
-Data loaded from a specific player is therefore only loaded on that player's machine and needs to be synchronized with all other players before it can be used in a synchronous environment.
-Wurst wraps all this behind a simple API, so you don't need to worry about the details.
+## 保存数据
 
-## Save Data
-
-To save data for a specific player, simplye invoke `saveData` with the data you want to save.
-Existing file contents will be overriden.
-Since saving does not require syning, it is the simpler operation.
+保存指定玩家的数据,调用`saveData`方法,传入你想保存的数据
+注意已经存在的文件会被覆盖.
+由于存储不需要同步,因此更简单一些
 
 ```wurst
 init
 	players[0].saveData("MyFileName", "someDataString")
 ```
 
-This will save `someDataString` into the file `MyFileName.pld` in the CustomMapData folder.
+这将会在CustomMapData文件夹下的文件`MyFileName.pld`中保存`someDataString`
 
-## Load Data
+## 载入数据
 
-To load data for a specific player, invoke the `loadData` function with the same file name you used to save.
-Because loading does require syncing, `loadData` expect a closure as second parameter which will be invoked once the loading and syncing has finished.
-Loading may also fail if the file is empty or corrupted, so you should check the `status` parameter for validity.
-If the status is `SUCCESS`, the `data` parameter will contain the synced version of the file's contents, which you can immediately use in a synchronous context.
+从指定玩家那读数据,调用 `loadData`函数,将你保存时使用的文件名传入.由于载入需要同步.`loadData`需要传入了一个闭包作为第二个参数,该闭包会在载入数据和同步都完成时被调用.
+载入也可能会失败,倘若文件是空的,亦或者被损坏了.你需要检查`status`参数以确保载入的有效性.
+如果状态(`译:status`)是`SUCCESS`,那`data`参数会包含已同步版的文件里的内容.在一个同步上下文(`译:某种程度上可以说是非异步的代码中`)中使用这个`data`数据即可.
+
 
 ```wurst
 init
@@ -48,9 +47,10 @@ init
 			// some error handling
 ```
 
-## Limitations and Chunking
+## 极限和分区
+我们在上面的例子中使用了`.readStringUnsafe()`. 之所以说是不安全(`unsafe`),是因为`string`的未连接最大长度被限制在了1024bytes,而已连接的最大长度也被限制在了4099个字符.这不仅会限制我们能读取多少的数据,也会导致在寻常情况下的使用更复杂.
+而且1024bytes也不等于与1024个字符,由于一些unicode字符比1个byte大.
 
-As you can see we used `.readStringUnsafe()` in the example above. It is unsafe because the maximum length of a `string` in Jass is capped at 1024 bytes without and 4099 characters with concatenation. This would not only limit how much data we can load/save, but also complicate the usage in general.
-1024 bytes also doesn't equal to 1024 characters, because certain characters (unicode) take up more than 1 byte.
+因此我们对于超过500个字符的情况,通常建议使用 `ChunkedString` .  `ChunkedString`会把大的字符串分割成更小的多个字符串,可以分别访问.
 
-Thus it is generally recommended to use a `ChunkedString` for any data above around 500 characters. The `ChunkedString` splits big strings into smaller chunks, which can then be acceessed seperately. The save functions are overloaded to allow string or ChunkedString input.
+保存函数被重载成了可以允许string和ChunkedString作为输入的版本.

@@ -1,9 +1,9 @@
 ---
-title: Assets
+title: 资源
 sections:
-- Intro
-- Object Editing
-- At runtime
+- 导入
+- 对象编辑
+- 在运行时
 ---
 
 ### Intro
