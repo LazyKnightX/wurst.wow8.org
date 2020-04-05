@@ -1,11 +1,11 @@
 ---
-title: Bitset
+title: 位集(bitset)
 sections:
-- Intro
-- Usage
+- 导入
+- 使用
 ---
 
-### Intro
+### 导入
 
 A bitset is a set of smaller integers represented as one big one. Let's remind ourselves how the integer is represented in binary:
 

@@ -11,30 +11,29 @@ sections:
 ---
 
 {: .answer}
-### *&nbsp;*{: .fa .fa-exclamation-circle} This guide expects the reader to be familiar with vJass.
+### *&nbsp;*{: .fa .fa-exclamation-circle} 阅读该指南的时候最好熟悉vjass
 
 {: .answer}
-### *&nbsp;*{: .fa .fa-exclamation-circle} This tutorial is in the format of an informal discussion, but many of the key points are backed by well understood, high-level programming paradigms.
+### *&nbsp;*{: .fa .fa-exclamation-circle} 这个教程是某种非正式讨论的形式,但交流中很多关键点由易于理解的高级编程范式所支持.
+(`译者:这篇是给用vjass的人安拉wurst的`)
 ------
+当我们讨论wurst的时候,我听到一些奇怪的反对使用它的说法.
+有些说法也蛮有意思的,比如"我就是没办法适应,学习它","我的图已经在用vjass嘞",但是其他的讨论还是蛮奇怪的,值得一些指导.
+更精准的说,有许多关于wurst的讨论充斥着误解和谣言.
+Wurst,是一门简单易学的语言,并且你可以边用vJass边用wurst。
 
-When I (evangelize?) discuss wurst, I tend to hear weird arguments against using it.
-Some of them are interesting, like "well I can't justify learning it", or "my map is already using vJass", but other arguments tend to be outlandish and worth some education.
-More concretely, lots of arguments about wurst are spoilt by misunderstanding or misinformation.
+作为背景:我在几年前选择改用wurst,在这之前我已经有了充分的编写vjass代码的经验.发生这个改变也很简单.我仅仅是想试着用wurst做个自娱自乐的小图,但立刻意识到我之前被公众舆论所带偏和误导了.
+不仅仅是我,绝大部分的开发者都将它视作了某种vjass或者zinc的高级变种.
+所以这篇文章的目的不仅仅是学习,也是正名.
 
-For what it's worth, wurst is an easy language to learn, and you can write wurst in a map alongside vJass, but I digress.
 
-As background: I switched to using wurst in the last couple years after fairly extensive experience writing vJass.
-The switch was easy - I decided to "try" wurst on a toy map, and immediately realized that I was previously wearing blinders, and indeed was *misled* by the public opinion of others.
-Not only me, but also many other developers have since come into contact with wurst and appreciate it as a high level alternative to vjass or zinc.
 
-So this tutorial is about learning, but it's also about justice.
+## 为什么不用Vjass呢
 
-## Why not vJass?
+wurst使用者关于这方面的讨论并不出众
+vjass最有趣的问题不是蠢到爆炸的怪异语法比如"extends array"或者宏定义系统.这些小臭毛病指向了一个更大的问题.这个语言是个畸形的缝合怪,把一大堆事物缝合在了一起.
+更有意思的讨论vjass不是个好选择的探讨在下方.
 
-This is an argument that wurst users have historically done poor at.
-The most interesting problems with vJass are not silly quirks like "extends array" or the macro system - those are small language smells that point to a larger problem - the language is a bit of an abomination for hacking things together.
-
-The more interesting discussion revolves around understanding what vJass is not, as discussed below.
 
 ### Preprocessor
 

@@ -1,21 +1,23 @@
 ---
-title: Timers with Closures
+title: 闭包计时器
 sections:
-- Intro
-- Delayed actions
-- Periodic actions
+- 导入
+- 延时动作
+- 周期动作
 ---
 
-### Intro
+### 导入
 
-The `ClosureTimers.wurst` package wraps Warcraft III timer mechanics using Wurst closures. The usage of closures allows you to carry over data and save the callbacks in a variable.
+这个 `ClosureTimers.wurst`包,他使用Wurst闭包封装了一系列War3的计时器的机制.利用这些闭包,你可以跨域传递数据,或是将回调函数存储在某个变量中
 
-> While ClosureTimers are great and fit for most tasks, in performance critical situations, the TimedLoop module can yield better results.
 
-### Delayed actions
+> 尽管闭包计时器能够处理大多问题, 但在性能吃紧的情况下, TimedLoop模块能够表现出更好的结果.
 
-The most common usecase for timers is executing something after a given time, without stopping the execution of other code. To do this use the `doAfter()` function.
-A few examples:
+### 延时动作
+
+计时器最经常被用于在一定时间后执行某些事情,而无需停止其他代码的执行的情景中.你可以使用`doAfter()`函数来做到这一点.
+
+一些例子是:
 
 ```wurst
 // Destroy effect after 5 seconds
@@ -29,15 +31,15 @@ let target = GetTriggerUnit()
 doAfter(2.) ->
 	attacker.damageTarget(target, 20)
 ```
+和vJass的计时器数据绑定比较一下你会立刻注意到,这些闭包的数据绑定是自动.
 
-Compared to vJass variants of timer data attachment you should immediately notice, that the data attachment with closures happens automatically.
-At creation, the closure will capture data used inside it, in this case `eff` and `attacker, target` respectively, so you can reference them later in the callback.
+在创建的时候,闭包会去捕获它内部的数据,在这个例子里.分别是`eff`和`attacker,target`.你可以在之后的回调中引用他们
 
-Behind the scenes ClosureTimers just use `TimerUtils` data attachment themselves.
+在底层,闭包计时器也使用`TimerUtils`来实现数据绑定
 
-### Periodic actions
+### 周期动作
 
-The other typical usecase for timers is periodical execution of a certain action. Use `doPeriodically()` or `doPeriodicallyCounted`.
+另一个典型的用例是周期的执行某些特定的动作,这个情况请使用`doPeriodically()` 或 `doPeriodicallyCounted`.
 
 ```wurst
 doPeriodically(ANIMATION_PERIOD) cb ->
@@ -47,13 +49,11 @@ doPeriodically(ANIMATION_PERIOD) cb ->
 		for missile in missiles
 			missile.update()
 
-// Countdown
+// 计时
 doPeriodicallyCounted(1, 3) cb ->
 	print(cb.getCount().toString() + "..")
 ```
-
-As you can see, in this variants the callback received the closure object as parameter, so you can destroy or modify it.
-You can also save the callback in a variable, to destroy it e.g. when the related unit dies.
+你看,在这个变体,回调接收一个闭包对象作为参数.所以你可以销毁或者修改它.你也可以将这个回调保存在变量中,然后比方说,在相关联的单位死亡后销毁它.
 
 ```wurst
 class MyClass

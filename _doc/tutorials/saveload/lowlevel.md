@@ -1,30 +1,29 @@
 ---
-title: Low level API
+title: 底层API
 sections:
-- Motivation
-- FileIO
-- SyncSimple
+- 动机
+- 文件IO
+- 同步例子
 ---
 
-## Motivation
+## 动机
+有时候你不想要高层的API,比如同步不需要在单人模式中实现,因此你不需要这些特性,或者你就是想写一些新的组件.
 
-Sometimes you might not want to use the high level API, because you don't require the features, e.g. syncing in Singleplayer or you want to just use a certain new component.
+## 文件IO
 
-## FileIO
-
-Read a file
+读
 
 ```wurst
 let fileContent = new File("MyFileName.pld").readAsString()
 ```
 
-Write a file
+写
 
 ```wurst
 new File("MyFileName.pld")..write("MyContent")..close()
 ```
 
-## SyncSimple
+## 同步例子
 
 Sync a string:
 ```wurst

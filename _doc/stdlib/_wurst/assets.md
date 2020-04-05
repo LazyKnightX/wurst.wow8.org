@@ -1,29 +1,31 @@
 ---
-title: Assets
+title: 资源
 sections:
-- Intro
-- Object Editing
-- At runtime
+- 导入
+- 物编
+- 在运行时
 ---
 
-### Intro
+### 导入
 
-One great thing about Warcraft III is that it comes with a plethora of models, textures, sounds and more which we can make use of in our maps.
-Since we try to avoid using the World Editor though, it becomes cumbersome to keep track of all the paths and ids manually.
-To alleviate this issue we introduced the Asset packages which expose all those internal values as simple wurst variables.
+War3有一点很棒,他有着大量的贴图,音效,模型等我们可以直接利用的资源.由于我们在Wurst开发中尝试避免使用WE,因此去手动追踪这些资源的路径和ID就变得非常艰难了.
+为了减轻这一负担,我们引入了资源管理包,将这些内部的值作为简单的Wurst变量暴露出来.
 
-### Object Editing
 
-When creating objects at compiletime you should always use an asset variable instead of the raw path or id, to prevent typos and other uneccessary mistakes.
+### 物编
+
+在`编译时`创建物体的时候你应该总是使用资源变量,而不是硬编码原生的路径和ID.这样能够有效地防止你打错字,还能避免一些其他不必要的错误.
+
 
 ```wurst
 new UnitDefinition(MY_ID, UnitIds.footman)
 ..setIconGameInterface(Icons.bTNCentaur)
 ```
 
-### At runtime
+### 运行时
 
-Also at runtime assets can be useful, e.g. for creating effects or playing sounds:
+这些资源在运行时也能提供不少帮助,比如创建一个特效或者音效.
+
 
 ```wurst
 flashEffect(Abilities.pileofGold, ZERO2)
