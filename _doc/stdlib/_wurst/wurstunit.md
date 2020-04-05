@@ -26,7 +26,7 @@ sections:
 `println` 只是一个在vscode 输出栏中输出信息的函数.
 在你的代码里,你可以使用他和`print`来施行日志,结果会显示在测试单元里.
 You can use it and `print` to perform logs in your code that will show up in tests.
-`testFail`和 `testSuccess` 是让单元测试成功或者失败的函数.取决于哪个先调用.
+`testFail`和 `testSuccess` 是让单元测试成功或者失败的函数,失败和成功取决于哪个先调用.
 测试默认成功,而你也应该确保自己使用断言而非这些原生的函数.
 
 

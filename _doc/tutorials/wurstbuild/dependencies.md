@@ -13,9 +13,9 @@ This tutorial documents the usage of the wurst setup tool in combination with th
 
 ## 文件结构
 
-`wurst.build`文件是一个yaml文件,必须放在你工程的根目录下,理论上而言应该是靠近`Wurst`文件夹的文件.
+`wurst.build`文件是一个yaml文件,必须放在你工程的根目录下,理论上而言应该是靠近`Wurst`文件夹的一个文件.
 这个文件控制着你的工程的依赖项,以及build task如何配置你的地图.
-所有的值皆是可选的.不完整或者无效的配置会被地图已经存在的配置以及默认值所替换.下面是一个完整的,所有的域皆是默认值的wurst.build文件,如果你不想改变这些默认值,你可以忽视掉这些域.
+所有的值皆是可选的,也就是可以不填.不完整或者无效的配置会被地图已经存在的配置以及默认值所替换.下面是一个完整的,所有的域皆是默认值的wurst.build文件,如果你不想改变这些默认值,你可以忽视掉这些域.(不写。)
 
 
 ```yml
@@ -63,9 +63,9 @@ buildMapData:
 ## 依赖
 
 如今的安装不会锁定版本,但是将来会考虑这个功能.依赖链则不会被解析.
-The setup does no version locking for now, but this is planned for a future version. Transitive dependencies will not be resolved.
 
-依赖需要填写一个公共git repo的简单url,将会被setup程序拉去.
+
+依赖需要填写一个公共git repo的简单url,这个repo将会被setup程序拉进工程里去.
 
 默认情况下,setup程序安装的工程会包含标准库 `https://github.com/wurstscript/wurstStdlib2`
 

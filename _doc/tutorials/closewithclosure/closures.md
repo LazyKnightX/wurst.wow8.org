@@ -9,7 +9,7 @@ sections:
 
 ## 闭包
 
-闭包(closure)使用类来突破这些限制,并让编译器来自动的为你处理这些糟心的的工作.闭包是通过隐式创建的,这意味着你不会去调用`new`来实例化它们.要用闭包,你得先定义一个构建你的闭包对象的类.让我们来举个例子,实现一个有两个整型作为参数的回调函数.
+闭包(closure)使用类来突破这些限制,并让编译器来自动的为你处理这些糟心的的工作.闭包是通过隐式创建的,这意味着你不会去调用`new`来实例化它们.要用闭包,你得先定义一个构建你的闭包对象的类.让我们来举个例子,来实现一个有两个整型作为参数的回调函数.
 通过实现一个包含单一抽象函数的接口,或者抽象类，我们就能做到这一点了.
 
 
@@ -42,7 +42,7 @@ function testCalculations()
     gen.doCalculations()
 ```
 在这我们用了一个 `IntGenerator` 来接收`Calculator`对象,以比较两个随机数在不同的计算方法上的结果.
-如果我们不用闭包,我们会需要声明一个类来实现`Calculator`接口,重写`doCalc`函数,然后传递一个通过`new`实例化的对象给 `addCalculator`
+如果我们不用闭包,我们会需要声明一个类来实现`Calculator`接口,重写`doCalc`函数,然后传递一个通过`new`而实例化的对象给 `addCalculator`
 
 像这样:
 
@@ -54,7 +54,7 @@ class MyCalculator implements Calculator
 ...
     gen.addCalculator(new MyCalculator())
 ```
-这其实就是Wurst会悄悄替你做的事情.再一次,函数名后面的部分转换为lambda表达式:
+这其实就是Wurst会悄悄替你做的事情.来看下面,函数名后面的部分转换为lambda表达式:
 
 ```wurst
     let gen = new IntGenerator()
@@ -62,7 +62,7 @@ class MyCalculator implements Calculator
         return i1 + (i1 * i2)
     gen.doCalculations()
 ```
-你会注意到,这再也没有类`MyCalculator`了,但是Wurst会为你生成一个类似的.由于你没有名字去访问它,就行匿名函数一样,这是匿名的.某种程度上你可以把闭包当成匿名的类,它们由每一个对接口的实现来新建.顺带一提,由于`interface Calculator`中函数的参数类型已经给定了,我们可以在lambd中忽略这些参数类型.
+你会注意到,这儿再也没有类`MyCalculator`了,但是Wurst会为你生成一个类似的类,悄咪咪的在后台干的.由于你没有名字去访问它,就如同之前匿名函数一样,这也是匿名的.某种程度上你可以把闭包当成匿名的类,每一个对接口的新的实现就会新建一个这样的闭包.顺带一提,由于`interface Calculator`中函数的参数类型已经给定了,我们可以在lambd中忽略这些参数类型.
 
 
 ```wurst

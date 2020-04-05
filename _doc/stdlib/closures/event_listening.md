@@ -1,11 +1,11 @@
 ---
-title: Generic Events
+title: 事件监听
 sections:
-- Intro
-- Generic events
-- Special events
-- Chat input event
-- Cast events
+- 导入
+- 普通事件
+- 特殊事件
+- 聊天输入事件
+- 施法事件
 ---
 
 ### Intro
