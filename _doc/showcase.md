@@ -1,5 +1,5 @@
 ---
-title: 陈列馆
+title: 地图博物馆
 excerpt: 使用WurstScript完成的地图。
 date: 2018-03-20
 icon:

@@ -1,6 +1,8 @@
 ---
 title: vJass使用者进阶到Wurst
-excerpt:为有经验的vJass使用者安利wurst
+
+excerpt: 为有经验的vJass使用者安利wurst
+
 date: 2017-08-21
 icon:
   type: fa

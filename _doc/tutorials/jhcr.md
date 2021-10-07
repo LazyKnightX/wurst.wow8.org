@@ -1,5 +1,6 @@
 ---
-title: 代码热更新
+
+title: 代码热更新(1.31)
 excerpt: 学习如何通过JHCR在运行的地图上更新代码
 date: 2019-03-29
 icon:
