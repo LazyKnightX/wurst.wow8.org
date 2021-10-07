@@ -3,9 +3,9 @@ layout: home
 title: 首页
 image: /assets/images/wurst_icon64.png
 tagline: |
-  使用劲道十足的“香肠”来撰写Jass。
-  
-  *“释放你指尖的力量、效率，与速度！”*
+  wurst国内QQ群934023552
+
+  *“wurst香肠释放你指尖的力量、效率，与速度！”*
 heading: 立即开始使用Wurst！
 
 description: 一个现代化的魔兽争霸3 MOD开发工具链。

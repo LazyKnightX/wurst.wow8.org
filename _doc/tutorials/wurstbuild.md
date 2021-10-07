@@ -1,6 +1,6 @@
 ---
 title: wurst.build文件
-excerpt: 一个管理"项目"和"依赖的核心lib库"的文件
+excerpt: 一个能管理地图项目和各种依赖库的配置文件
 date: 2019-10-23
 icon:
   type: fa

@@ -1,6 +1,6 @@
 ---
-title: Save and Load
-excerpt: Learn how to use Wurst's codeless save and load API
+title: 同步&文件IO(1.31)
+excerpt: 学习1.31新加的网络同步，和狗都不用的preload文件IO
 date: 2019-10-25
 icon:
   type: fa

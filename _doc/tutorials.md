@@ -7,9 +7,9 @@ icon:
 color: purple
 layout: tutorials
 tagline: |
-  使用劲道十足的“香肠”来撰写Jass。
+  wurst国内QQ群934023552
   
-  *“释放你指尖的力量、效率，与速度！”*
+  *“wurst香肠释放你指尖的力量、效率，与速度！”*
 heading: 选择一个教程
 navigation:
   - /tutorials/wurstbeginner

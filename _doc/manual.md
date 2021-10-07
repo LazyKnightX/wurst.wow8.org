@@ -1,5 +1,5 @@
 ---
-title: 手册
+title: 语法手册
 excerpt: Wurst所有语法的官方介绍。
 date: 2018-03-20
 icon:
