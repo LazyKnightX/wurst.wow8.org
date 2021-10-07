@@ -1,6 +1,6 @@
 ---
-title: Hot Code Reload Guide
-excerpt: Learn how to update code in a running map with JHCR
+title: 代码热更新(1.31)
+excerpt: 学习如何通过JHCR在运行的地图上更新代码
 date: 2019-03-29
 icon:
   type: fa
@@ -10,8 +10,11 @@ author: peq
 layout: tutorialdoc
 ---
 
-# Jass Hot Code Reload
+# JHCR(Jass Hot Code Reload)
 
+JHCR(Jass Hot Code Reload)称为jass代码热更新，，目前只支持1.31和1.32。
+JHCR原理并不是Memory Hack，而是把jass翻译成字节码，通过地图脚本并注入运行时间并转换地图脚本，使运行时间能够与它配合使用
+原作者博客解释了运行原理：https://lep.duckdns.org/blog/2020-09-25-jhcr-a-high-level-overview.html
 Wurst has integrated support for JHCR to reload code while the map is running.
 This allows you to iterate quickly, because it is not necessary to test the map from the beginning after every code change.
 

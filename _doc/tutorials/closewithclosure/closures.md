@@ -1,27 +1,32 @@
 ---
-title: 进击的闭包
+title: 使用闭包的示例
 sections:
-- 闭包
-- 数据的保留
+- 为什么要用闭包
+- 跨域传递数据
 - 在变量中保存闭包
-- 别被惹毛了
+- 不用触发器了！
 ---
 
-## 闭包
 
-闭包(closure)使用类来突破这些限制,并让编译器来自动的为你处理这些糟心的的工作.闭包是通过隐式创建的,这意味着你不会去调用`new`来实例化它们.要用闭包,你得先定义一个构建你的闭包对象的类.让我们来举个例子,来实现一个有两个整型作为参数的回调函数.
+
+## 为什么要用闭包
+
+
+闭包(closure)使用类来突破这些限制,并让编译器来自动的为你处理这些糟心的的工作.
+
+闭包是通过隐式创建的,这意味着你不会去调用`new`来实例化它们.要用闭包,你得先定义一个构建你的闭包对象的类.
+
+让我们来举个例子,来实现一个有两个整型作为参数的回调函数.
 通过实现一个包含单一抽象函数的接口,或者抽象类，我们就能做到这一点了.
 
-
-```wurst
-interface Calculator
-    abstract function doCalc(int i1, int i2)
-```
 我们如期的使用这个类型,目前为止没有什么特别的地方.
 让我们来快速测试一下.
 
 
 ```wurst
+interface Calculator
+    abstract function doCalc(int i1, int i2)
+    
 class IntGenerator
     let calculators = new LinkedList<Calculator>
 
@@ -42,11 +47,15 @@ function testCalculations()
     gen.doCalculations()
 ```
 在这我们用了一个 `IntGenerator` 来接收`Calculator`对象,以比较两个随机数在不同的计算方法上的结果.
+
+### 不用闭包
+
 如果我们不用闭包,我们会需要声明一个类来实现`Calculator`接口,重写`doCalc`函数,然后传递一个通过`new`而实例化的对象给 `addCalculator`
 
 像这样:
 
 ```wurst
+//不用闭包——重写计算器接口的计算方法
 class MyCalculator implements Calculator
     override function doCalc(int i1, int i2)
         return i1 + (i1 * i2)
@@ -54,18 +63,24 @@ class MyCalculator implements Calculator
 ...
     gen.addCalculator(new MyCalculator())
 ```
+### 使用闭包
+
 这其实就是Wurst会悄悄替你做的事情.来看下面,函数名后面的部分转换为lambda表达式:
 
 ```wurst
+    //闭包——lambda表达式写法
     let gen = new IntGenerator()
     gen.addCalculator() (int i1, int i2) ->
         return i1 + (i1 * i2)
     gen.doCalculations()
 ```
-你会注意到,这儿再也没有类`MyCalculator`了,但是Wurst会为你生成一个类似的类,悄咪咪的在后台干的.由于你没有名字去访问它,就如同之前匿名函数一样,这也是匿名的.某种程度上你可以把闭包当成匿名的类,每一个对接口的新的实现就会新建一个这样的闭包.顺带一提,由于`interface Calculator`中函数的参数类型已经给定了,我们可以在lambd中忽略这些参数类型.
+你会注意到,这儿再也没有类`MyCalculator`了,但是Wurst会为你生成一个类似的类,悄咪咪的在后台干的.由于你没有名字去访问它,就如同之前匿名函数一样,这也是匿名的.某种程度上你可以把闭包当成匿名的类,每一个对接口的新的实现就会新建一个这样的闭包.
+
+顺带一提,由于`interface Calculator`中函数的参数类型已经给定了,我们可以在lambda中忽略这些参数类型.
 
 
 ```wurst
+    //闭包——lambda表达式写法【忽略参数类型】
     let gen = new IntGenerator()
     gen.addCalculator() (i1, i2) ->
         return i1 + (i1 * i2)
@@ -77,7 +92,7 @@ class MyCalculator implements Calculator
 这便已经超越了`code`的可能性.不过额外的,我们还可以通过使用类来保留数据.
 
 
-## 数据的保留
+## 跨域传递数据
 
 你通常会想着把外部的数据传递给匿名函数,一个比较常规的例子是延迟执行代码。
 Often you want to pass data from the outside into the anonymous function.
@@ -139,12 +154,10 @@ function spellEffect()
         destroy listener
 ```
 如你所见我们在一个变量中保存了`EventListener.add` 返回的监听器,以在10秒后销毁它.
-As you can see we save the listener returned by `EventListener.add` in a variable to destroy it after 10 seconds.
+原文：As you can see we save the listener returned by `EventListener.add` in a variable to destroy it after 10 seconds.
 
 记住闭包不会被自动的回收,除非底层系统替你做了.标准库会销毁计划中为临时性的闭包.
-## 别被惹毛了
-
-(不用触发器)
+## 代替触发器Action
 
 如在导入中提及的那一,闭包也是一个触发器的替代品,因为触发器在jass中也被用来提供自定义事件.
 代替掉使用`addAction` 并提供回调函数的函数名作为参数的方法,我们定义一个闭包接口/类,并按需保存.
@@ -155,16 +168,16 @@ As you can see we save the listener returned by `EventListener.add` in a variabl
 
 ```wurst
 package Level
-
+//类似js的事件监听器，监听完成事件
 interface LevelFinishedListener
 	function onFinish()
-
+//创建关卡类，每1关(1个实例)都能注册【事件—关卡完成】时候的【动作】
 class Level
 	private LevelFinishedListener listener
-
+	//添加实例完成监听器【添加动作】
 	function addFinishListener(LevelFinishedListener listener)
 		this.listener = listener
-
+	//完成关卡，运行【完成动作】
 	function finishLevel()
 		print("Level finished")
 		listener.onFinish()

@@ -1,6 +1,6 @@
 ---
-title: Wurst For vJass Users
-excerpt: High level discussion on Wurst for experienced vJass users.
+title: vJass使用者进阶到Wurst
+excerpt: 为有经验的vJass使用者安利wurst
 date: 2017-08-21
 icon:
   type: fa
