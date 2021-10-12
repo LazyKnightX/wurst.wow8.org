@@ -246,6 +246,7 @@ GEM
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.1)
+    wdm (0.1.1)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -261,9 +262,10 @@ DEPENDENCIES
   jekyll-seo-tag
   jekyll-sitemap
   nokogiri (>= 1.8.5)
+  wdm (>= 0.1.0)
 
 RUBY VERSION
    ruby 2.6.8p205
 
 BUNDLED WITH
-   2.2.28
+   2.2.29
