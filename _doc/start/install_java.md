@@ -5,7 +5,8 @@ sections:
   - 验证/更新Java
 ---
 
-WurstScript以及其相关工具需要Java8来正常运行，因此你需要确保你的电脑上安装了Java8。
+> WurstScript以及其相关工具需要Java8来正常运行。
+> 编者注：装java的教程有很多，这部分不会可以百度。
 
 ### 下载 JRE
 
