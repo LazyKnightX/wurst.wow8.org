@@ -14,6 +14,8 @@ sections:
 
 如果你在国内环境打开，这个软件会启动的比较慢，大约需要30秒。
 
+【中国的网络环境可能导致超时，需要科学上网使用。】
+
 ![](/assets/images/setup/WurstSetup.png){: .img-responsive}
 
 ### 安装编译器
@@ -49,3 +51,64 @@ sections:
 通过点击导入按钮，你可以加载一个现有的wurst.build文件。
 点击“更新项目”按钮后，将更新你的项目依赖关系并根据需要生成必要的本地文件。
 你应该使用此功能来更新现有项目并导入新克隆的项目。
+
+## 中国1.27版搭建教程(官方平台版)
+
+> 作者：FBI琪露诺——750160517@qq.com
+>
+> Q群：934023552
+>
+> 版本：1.27
+
+道道做的搭建视频https://www.bilibili.com/video/av412963739/
+
+### 搭建开始
+
+按照上方教程搭建wurst文件夹
+
+按照道道的搭建视频，删除<u>_build\dependencies\</u>中的<u>WurstStdlib2</u>文件夹
+
+打开wurst.build 添加代码
+
+ ```
+  dependencies:
+  - https://github.com/fbicirno/WurstStdlib2
+ ```
+
+  ### 替换为1.27
+
+打开【Q群934023552】的tasks.json，找到%编辑器路径%，修改为你的we编辑器路径
+**【可以使用文本编辑器的替换功能】**
+
+```
+例如
+"command": "%编辑器路径%\\bin\\YDWEConfig.exe",
+修改为
+"command": "D:\\SoftWare\\WorldEdit\\bin\\YDWEConfig.exe",
+```
+
+将%编译地图名%修改为_build文件夹下的地图名
+
+将
+
+打开项目文件夹\\.vscode
+
+将本教程的tasks.json复制进去
+
+### 测试地图
+
+重启vscode
+
+按F5
+
+输入run map with YDWEConfig
+
+运行地图即可
+
+### 常见问题
+
+Q 为什么会启动混乱之治，而不是冰封王座？
+
+A可能是魔兽文件夹里混乱之治叫Warcraft III.exe，将其随意改名即可
+
+更多问题请点击[避坑指南](https://github.com/fbicirno/WurstStdlib2/tree/master/%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97)

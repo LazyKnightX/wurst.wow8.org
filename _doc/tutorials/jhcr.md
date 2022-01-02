@@ -13,13 +13,16 @@ layout: tutorialdoc
 
 # JHCR(Jass Hot Code Reload)
 
-JHCR(Jass Hot Code Reload)称为jass代码热更新，，目前只支持1.31和1.32。
-JHCR原理并不是Memory Hack，而是把jass翻译成字节码，通过地图脚本并注入运行时间并转换地图脚本，使运行时间能够与它配合使用
-原作者博客解释了运行原理：https://lep.duckdns.org/blog/2020-09-25-jhcr-a-high-level-overview.html
-Wurst has integrated support for JHCR to reload code while the map is running.
-This allows you to iterate quickly, because it is not necessary to test the map from the beginning after every code change.
+> **目前只支持1.31和1.32。**
 
-## Installation
+JHCR原理并不是Memory Hack，而是把jass翻译成字节码
+通过地图脚本并注入运行时间并转换地图脚本，使运行时间能够与它配合使用
+原作者博客解释了运行原理：[jhcr，一个高级概述](https://lep.duckdns.org/blog/2020-09-25-jhcr-a-high-level-overview.html)
+
+Wurst 有完整的支持 JHCR 在地图运行时 reload 代码
+这使得你能快速迭代，because it is not necessary to test the map from the beginning after every code change.
+
+## 安装方法
 
 If you have not installed Wurst and Visual Studio Code yet, you should first check out the [Setup Guide](/start).
 
@@ -32,7 +35,7 @@ Then to setup JHCR:
     This is usually something like `C:\Users\YourName\Documents\Warcraft III\CustomMapData` or `C:\Users\YourName\OneDrive\Dokumente\Warcraft III\CustomMapData`. This path will be passed to the `--preload-path` option of Jass Hot Code Reload (JHCR).
     If you do not specify this path, Wurst will try to find the correct folder automatically.
 
-## Usage
+## 用法
 
 To use Hot Code Reload, simply run your map using your map with the `wurst.hotstartmap` command:
 
@@ -47,6 +50,6 @@ After Warcraft has started you can edit your code and when you want to load your
  - Wait until the compilation has finished
  - Switch back to the Game and hit `ESC` to trigger the reload.
 
-## Advanced Usage
+## 更先进的用法
 
 If you want to use these commands often, you can assign keyboard shortcuts for them in Visual Studio Code.
